@@ -6,7 +6,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("/hello")
-public class endpoint {
+public class UserEndpoint {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
