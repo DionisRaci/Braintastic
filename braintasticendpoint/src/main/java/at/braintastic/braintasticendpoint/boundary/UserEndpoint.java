@@ -4,10 +4,14 @@ import at.braintastic.braintasticendpoint.control.UserRepository;
 import at.braintastic.braintasticendpoint.entity.User;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.json.JsonArray;
+import javax.json.JsonValue;
+import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("/user")
@@ -16,8 +20,77 @@ public class UserEndpoint {
     UserRepository userRepository;
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @GET
+    @Path("/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getGameByName(@PathParam("username") String gamename) {
+        return userRepository.findByName(gamename);
+    }
+
+    @GET
+    @Path("/id/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getGameById(@PathParam("id") Long id) {
+        return userRepository.findById(id);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(@Context UriInfo info, JsonValue jsonValue) {
+        if(jsonValue.getValueType() == JsonValue.ValueType.ARRAY) {
+            JsonArray jsonArray = jsonValue.asJsonArray();
+            for (JsonValue value : jsonArray) {
+                String name = value.asJsonObject().getString("name");
+                try {
+                    User u = userRepository.findByName(name);
+                }catch (Exception e){
+                    String password = value.asJsonObject().getString("password");
+                    User u = new User(name, password);
+                    userRepository.insertUser(u);
+                }
+            }
+        }
+        else {
+            String name = jsonValue.asJsonObject().getString("name");
+            try {
+                User u = userRepository.findByName(name);
+            }catch (Exception e){
+                String password = jsonValue.asJsonObject().getString("password");
+                User u = new User(name, password);
+                userRepository.insertUser(u);}
+
+        }
+        return Response.status(200).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") long id, User newuser){
+        if (newuser == null) return Response.status(400).build();
+        User user = userRepository.findById(id);
+        if (user == null) return Response.status(400).build();
+        userRepository.updateUser(newuser, user);
+        return Response.ok(user, MediaType.APPLICATION_JSON).build();
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") long id) {
+        try {
+            userRepository.delete(id);
+        } catch (EntityNotFoundException e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .header("Reason", "User with id " + id + " does not exist")
+                    .build();
+        }
+        return Response.noContent().build();
     }
 }
