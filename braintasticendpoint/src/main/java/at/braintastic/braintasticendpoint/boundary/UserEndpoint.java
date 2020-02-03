@@ -24,6 +24,11 @@ public class UserEndpoint {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+   /* @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getGameByNameQuery(@QueryParam("name") String name){
+        return userRepository.findByName(name);
+    }*/
 
     @GET
     @Path("/{username}")
