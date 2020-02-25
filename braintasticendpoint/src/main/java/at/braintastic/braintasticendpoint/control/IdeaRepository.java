@@ -27,4 +27,13 @@ public class IdeaRepository {
         Idea idea = new Idea(message, u);
         em.merge(idea);
     }
+
+    public void delete(long id) {
+        Idea i = findById(id);
+        em.remove(i);;
+    }
+
+    private Idea findById(long id) {
+        return em.find(Idea.class, id);
+    }
 }

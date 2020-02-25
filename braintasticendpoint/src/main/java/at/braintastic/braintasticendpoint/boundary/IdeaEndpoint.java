@@ -5,6 +5,7 @@ import at.braintastic.braintasticendpoint.entity.Idea;
 import at.braintastic.braintasticendpoint.entity.User;
 
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,5 +27,20 @@ public class IdeaEndpoint {
     public Response create(Idea idea){
         ideaRepository.insertIdea(idea);
         return Response.status(200).build();
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") long id) {
+        try {
+            ideaRepository.delete(id);
+        } catch (EntityNotFoundException e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .header("Reason", "Idea with id " + id + " does not exist")
+                    .build();
+        }
+        return Response.noContent().build();
     }
 }
