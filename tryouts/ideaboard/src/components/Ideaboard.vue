@@ -1,9 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <idea style="float: left;"></idea>
+  </div>
 </template>
 
 <script>
-export default {};
+import Idea from "./Idea.vue";
+export default {
+  components: {
+    idea: Idea
+  }
+};
 </script>
 
 <style>
