@@ -1,9 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <ideaboard></ideaboard>
+  </div>
 </template>
 
 <script>
-export default {};
+import Ideaboard from "./components/Ideaboard.vue";
+export default {
+  components: {
+    ideaboard: Ideaboard
+  }
+};
 </script>
 
 <style>
