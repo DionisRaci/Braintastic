@@ -26,4 +26,15 @@ export default {
 </script>
 
 <style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(#e5e7e8 1px, #ebedee 2px);
+  background-size: 8px 8px;
+}
+.red {
+  background-color: #e5e7e8;
+}
 </style>
