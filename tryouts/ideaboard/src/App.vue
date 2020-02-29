@@ -1,14 +1,26 @@
 <template>
   <div>
-    <ideaboard></ideaboard>
+    <idea-board></idea-board>
+    <idea-input></idea-input>
   </div>
 </template>
 
 <script>
 import Ideaboard from "./components/Ideaboard.vue";
+import IdeaInput from "./components/IdeaInput.vue";
+
 export default {
+  data() {
+    return {
+      ideas: [],
+      Idea: {
+        title: ""
+      }
+    };
+  },
   components: {
-    ideaboard: Ideaboard
+    "idea-board": Ideaboard,
+    "idea-input": IdeaInput
   }
 };
 </script>
