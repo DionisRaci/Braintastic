@@ -2,12 +2,16 @@ GET http://localhost:8080/Idea
 
 ###
 
+GET http://localhost:8080/user?name=UsernameTest
+
+###
+
 POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "name": "UsernameTest",
-  "password": "Hello123"
+  "name": "Test12332",
+  "password": "Hello1223"
 }
 
 ###
