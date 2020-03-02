@@ -1,4 +1,4 @@
-GET http://localhost:8080/user
+GET http://localhost:8080/Idea
 
 ###
 
@@ -24,5 +24,14 @@ Content-Type: application/json
 
 DELETE http://localhost:8080/user/delete/1
 
+###
+
+POST http://localhost:8080/Idea
+Content-Type: application/json
+
+{
+  "description": "UsernameTest",
+  "user_id": 2
+}
 
 ###

@@ -1,4 +1,8 @@
 package at.braintastic.braintasticendpoint.boundary;
+import at.braintastic.braintasticendpoint.control.IdeaRepository;
+import at.braintastic.braintasticendpoint.control.UserRepository;
+import at.braintastic.braintasticendpoint.entity.User;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -14,13 +18,15 @@ import javax.websocket.Session;
 @ServerEndpoint("/chat/{username}")
 @ApplicationScoped
 public class ChatSocket {
+    IdeaRepository ideaRepository;
+    UserRepository userRepository;
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
 
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username) {
         sessions.put(username, session);
-        broadcast("User " + username + " joined");
+        User u = new User(username, "asd");
     }
 
     @OnClose
@@ -37,7 +43,7 @@ public class ChatSocket {
 
     @OnMessage
     public void onMessage(String message, @PathParam("username") String username) {
-        broadcast(">> " + username + ": " + message);
+        broadcast(message);
     }
 
     private void broadcast(String message) {

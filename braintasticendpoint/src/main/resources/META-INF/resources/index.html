@@ -87,10 +87,28 @@
                 $("#connect").attr("disabled", true);
                 $("#name").attr("disabled", true);
                 $("#msg").focus();
+                var json = { name: name, password: "asd"};
+                json = JSON.stringify(json);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/user', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(json);
             };
             socket.onmessage =function(m) {
                 console.log("Got message: " + m.data);
+                var req = new XMLHttpRequest();
+                req.open('GET', '/user/' + name, true);
+                req.setRequestHeader('Content-Type', 'application/json');
+                req.responseType = 'json';
+                req.send();
+                let response = req.response;
+                var json = { description: m.data, user_id: response.id};
+                json = JSON.stringify(json)
+                req.open('POST', '/Idea', true);
+                req.setRequestHeader('Content-Type', 'application/json');
+                req.send(json);
                 $("#chat").append(m.data + "\n");
+
                 scrollToBottom();
             };
         }

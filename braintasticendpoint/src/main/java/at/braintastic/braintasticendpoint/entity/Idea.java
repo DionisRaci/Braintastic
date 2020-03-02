@@ -16,13 +16,13 @@ public class Idea {
     private String description;
 
     @ManyToOne
-    private User user;
+    private User user_id;
 
     public Idea(){}
 
     public Idea(String description, User user) {
         this.description = description;
-        this.user = user;
+        this.user_id = user;
     }
 
     public long getId() {
@@ -38,10 +38,10 @@ public class Idea {
     }
 
     public User getUser() {
-        return user;
+        return user_id;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.user_id = user;
     }
 }
