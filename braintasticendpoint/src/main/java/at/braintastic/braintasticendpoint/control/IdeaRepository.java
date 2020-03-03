@@ -23,7 +23,7 @@ public class IdeaRepository {
         em.merge(idea);
     }
 
-    public void insertIdeaByString(String message, User u) {
+    public void insertIdeaByString(String message, String u) {
         Idea idea = new Idea(message, u);
         em.merge(idea);
     }

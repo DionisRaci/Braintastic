@@ -14,15 +14,13 @@ public class Idea {
     @Id @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
     private String description;
-
-    @ManyToOne
-    private User user_id;
+    private String userName;
 
     public Idea(){}
 
-    public Idea(String description, User user) {
+    public Idea(String description, String user) {
         this.description = description;
-        this.user_id = user;
+        this.userName = user;
     }
 
     public long getId() {
@@ -37,11 +35,11 @@ public class Idea {
         this.description = description;
     }
 
-    public User getUser() {
-        return user_id;
+    public String getUser() {
+        return userName;
     }
 
-    public void setUser(User user) {
-        this.user_id = user;
+    public void setUser(String user) {
+        this.userName = user;
     }
 }

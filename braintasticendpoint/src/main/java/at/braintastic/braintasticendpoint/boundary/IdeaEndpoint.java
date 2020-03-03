@@ -30,10 +30,9 @@ public class IdeaEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(JsonObject idea){
-        long user_id = (long)(idea.getInt("user_id"));
+        String userName = (idea.getString("userName"));
         String desc = idea.getString("description");
-        User u = userRepository.findById(user_id);
-        Idea i = new Idea(desc, u);
+        Idea i = new Idea(desc, userName);
         ideaRepository.insertIdea(i);
         return Response.status(200).build();
     }

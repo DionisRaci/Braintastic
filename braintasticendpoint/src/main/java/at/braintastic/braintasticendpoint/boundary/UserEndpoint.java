@@ -68,7 +68,6 @@ public class UserEndpoint {
                 String password = jsonValue.asJsonObject().getString("password");
                 User u = new User(name, password);
                 userRepository.insertUser(u);}
-
         }
         return Response.status(200).build();
     }
