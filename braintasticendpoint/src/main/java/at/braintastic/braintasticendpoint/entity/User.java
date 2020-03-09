@@ -1,5 +1,9 @@
 package at.braintastic.braintasticendpoint.entity;
+import at.braintastic.braintasticendpoint.utility.PasswordHash;
+
 import javax.persistence.*;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @Entity
 @NamedQueries({
@@ -21,7 +25,13 @@ public class User {
 
     public User(String name, String password) {
         this.name = name;
-        this.password = password;
+        try {
+            this.password = PasswordHash.createHash(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
     }
 
     public User() {
@@ -48,6 +58,12 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        try {
+            this.password = PasswordHash.createHash(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
     }
 }
