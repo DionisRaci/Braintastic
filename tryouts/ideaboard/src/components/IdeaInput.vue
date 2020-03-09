@@ -4,29 +4,27 @@
       type="text"
       id="ideaInput"
       v-on:keyup.enter="onEnter"
-      v-model="text"
+      v-model="ideaText"
       placeholder="Write your superduper creative idea in here..."
     />
     <button id="ideaSubmit" @click="onSubmitIdea">Sumbit Idea</button>
-    <p>{{count}}</p>
   </div>
 </template>
 
 <script>
+import { eventBus } from "../main";
+
 export default {
   data() {
     return {
-      text: "",
+      ideaText: "",
       count: 0
     };
   },
-  props: {
-    ideaText: String
-  },
   methods: {
     onSubmitIdea() {
-      this.ideaText = this.text;
-      console.log(this.ideaText);
+      eventBus.addIdea(this.ideaText);
+
       this.count += 1;
       this.clearInput();
     },
@@ -35,7 +33,7 @@ export default {
     },
     clearInput(event) {
       document.getElementById("ideaInput").blur();
-      this.text = "";
+      this.ideaText = "";
     }
   }
 };
