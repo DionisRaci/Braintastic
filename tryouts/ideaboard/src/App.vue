@@ -1,6 +1,6 @@
 <template>
   <div>
-    <idea-board></idea-board>
+    <idea-board :ideas="ideas"></idea-board>
     <idea-input></idea-input>
   </div>
 </template>
@@ -9,18 +9,28 @@
 import Ideaboard from "./components/Ideaboard.vue";
 import IdeaInput from "./components/IdeaInput.vue";
 
+import { eventBus } from "./main";
+
 export default {
   data() {
     return {
-      ideas: [],
-      Idea: {
-        title: ""
-      }
+      ideas: [
+        "Socal Media Marketing",
+        "Google AdWords is very practical and efficient",
+        "Facebook ads are easy to setup and target the right group of people"
+      ],
+      ideaText: null
     };
   },
   components: {
     "idea-board": Ideaboard,
     "idea-input": IdeaInput
+  },
+  created() {
+    eventBus.$on("addedIdea", ideaText => {
+      this.ideaText = ideaText;
+      this.ideas.push(this.ideaText);
+    });
   }
 };
 </script>
