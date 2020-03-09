@@ -11,7 +11,7 @@ import javax.persistence.*;
 })
 @Table(name = "BT_Idea", schema = "braintasticdb")
 public class Idea {
-    @Id @GeneratedValue(strategy = GenerationType.TABLE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String description;
     private String userName;
