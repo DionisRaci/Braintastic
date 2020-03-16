@@ -1,7 +1,7 @@
 <template>
- <div>
-  <app-join></app-join>
- </div>
+  <div>
+    <app-join></app-join>
+  </div>
 </template>
 
 <script>
@@ -10,14 +10,13 @@ import Join from "./components/join.vue";
 import Create from "./components/create.vue";
 
 export default {
- components:{
-   "app-login" : Login,
-   "app-join" : Join,
-   "app-create" : Create
- }
-}
+  components: {
+    "app-login": Login,
+    "app-join": Join,
+    "app-create": Create
+  }
+};
 </script>
 
 <style>
-
 </style>
