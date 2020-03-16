@@ -24,7 +24,7 @@ public class UserEndpoint {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-   /* @GET
+     /* @GET
     @Produces(MediaType.APPLICATION_JSON)
     public User getGameByNameQuery(@QueryParam("name") String name){
         return userRepository.findByName(name);
@@ -33,14 +33,14 @@ public class UserEndpoint {
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getGameByName(@PathParam("username") String gamename) {
-        return userRepository.findByName(gamename);
+    public User getUserByName(@PathParam("username") String username) {
+        return userRepository.findByName(username);
     }
 
     @GET
     @Path("/id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getGameById(@PathParam("id") Long id) {
+    public User getUserById(@PathParam("id") Long id) {
         return userRepository.findById(id);
     }
 
