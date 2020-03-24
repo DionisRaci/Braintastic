@@ -1,6 +1,5 @@
 package at.braintastic.security.jwt;
 
-
 import java.io.InputStream;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -47,6 +46,7 @@ public class TokenUtils {
                                              String jsonResName, Map<String, Long> timeClaims) throws Exception {
 
         JwtClaimsBuilder claims = Jwt.claims(jsonResName);
+        System.out.println(claims.json());
         long currentTimeInSecs = currentTimeInSecs();
         long exp = timeClaims != null && timeClaims.containsKey(Claims.exp.name())
                 ? timeClaims.get(Claims.exp.name())
