@@ -1,6 +1,9 @@
 package at.braintastic.braintasticendpoint.security.oauth2;
 
+
 import org.eclipse.microprofile.jwt.JsonWebToken;
+
+import java.security.Principal;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -12,7 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
-import java.security.Principal;
+
 
 @Path("/secured")
 @RequestScoped
