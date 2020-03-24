@@ -1,5 +1,6 @@
 <template>
   <div>
+    <app-login></app-login>
     <app-join></app-join>
   </div>
 </template>
