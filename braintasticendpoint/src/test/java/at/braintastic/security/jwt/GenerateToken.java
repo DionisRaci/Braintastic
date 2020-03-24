@@ -17,6 +17,7 @@ public class GenerateToken {
 
 
     /**
+     * IMPORTANT: Before Generating the test Token use: './mvnw test-compile'
      *Generate Token via using: 'mvn exec:java -Dexec.mainClass=at.braintastic.security.jwt.GenerateToken
      *  -Dexec.classpathScope=test'
      *
@@ -37,4 +38,5 @@ public class GenerateToken {
         String token = TokenUtils.generateTokenString(claimsJson, timeClaims);
         System.out.println(token);
     }
+
 }
