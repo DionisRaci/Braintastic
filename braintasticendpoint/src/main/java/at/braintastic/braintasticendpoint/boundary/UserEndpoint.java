@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonValue;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Status;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -53,6 +54,9 @@ public class UserEndpoint {
                 String name = value.asJsonObject().getString("name");
                 try {
                     User u = userRepository.findByName(name);
+                    if (u != null){
+                        return Response.status(Status.STATUS_UNKNOWN).build();
+                    }
                 }catch (Exception e){
                     String password = value.asJsonObject().getString("password");
                     User u = new User(name, password);
@@ -64,10 +68,15 @@ public class UserEndpoint {
             String name = jsonValue.asJsonObject().getString("name");
             try {
                 User u = userRepository.findByName(name);
+                if(u != null){
+                    return Response.status(Status.STATUS_UNKNOWN).build();
+                }
             }catch (Exception e){
+
                 String password = jsonValue.asJsonObject().getString("password");
                 User u = new User(name, password);
-                userRepository.insertUser(u);}
+                userRepository.insertUser(u);
+            }
         }
         return Response.status(200).build();
     }
