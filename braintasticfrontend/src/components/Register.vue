@@ -167,7 +167,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    onSubmit() {
+      axios.post("/login", {
+        firstName: "Finn",
+        lastName: "Williams"
+      });
+    }
+  }
+};
 </script>
 
 <style></style>
