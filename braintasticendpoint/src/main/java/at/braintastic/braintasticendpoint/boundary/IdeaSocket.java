@@ -17,7 +17,7 @@ import javax.websocket.Session;
 
 @ServerEndpoint("/chat/{username}")
 @ApplicationScoped
-public class ChatSocket {
+public class IdeaSocket {
     IdeaRepository ideaRepository;
     UserRepository userRepository;
 
