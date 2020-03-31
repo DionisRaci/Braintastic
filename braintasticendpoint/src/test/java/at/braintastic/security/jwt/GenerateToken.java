@@ -21,7 +21,7 @@ public class GenerateToken {
      *Generate Token via using: 'mvn exec:java -Dexec.mainClass=at.braintastic.security.jwt.GenerateToken
      *  -Dexec.classpathScope=test'
      *
-     *  If you want a Time limit(given in Seconds) use the same command as above, but add the extension
+     *  If you want a Time limit (given in Seconds) use the same command as above, but add the extension
      *   ' -Dexec.args=""/JwtClaims.json 3600" '
      */
     public static void main(String[] args) throws Exception {

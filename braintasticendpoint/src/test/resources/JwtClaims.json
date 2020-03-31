@@ -11,8 +11,8 @@
     "group2": "Group2MappedRole"
   },
   "groups": [
-    "Member",
     "Admin",
+    "Member",
     "Leader",
     "Subscriber"
   ]
