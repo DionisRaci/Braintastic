@@ -55,7 +55,7 @@ public class UserEndpoint {
                 try {
                     User u = userRepository.findByName(name);
                     if (u != null){
-                        return Response.status(Status.STATUS_UNKNOWN).build();
+                        return Response.serverError().build();
                     }
                 }catch (Exception e){
                     String password = value.asJsonObject().getString("password");
@@ -69,7 +69,7 @@ public class UserEndpoint {
             try {
                 User u = userRepository.findByName(name);
                 if(u != null){
-                    return Response.status(Status.STATUS_UNKNOWN).build();
+                    return Response.serverError().build();
                 }
             }catch (Exception e){
 
