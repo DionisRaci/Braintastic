@@ -6,7 +6,7 @@ GET http://localhost:8080/user?name=UsernameTest
 
 ###
 
-POST http://localhost:8080/user
+POST http://localhost:8081/user
 Content-Type: application/json
 
 {
@@ -16,7 +16,7 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8080/user/1
+PUT http://localhost:8081/user/1
 Content-Type: application/json
 
 {
@@ -30,12 +30,21 @@ DELETE http://localhost:8080/user/delete/1
 
 ###
 
-POST http://localhost:8080/Idea
+POST http://localhost:8081/Idea
 Content-Type: application/json
 
 {
   "description": "UsernameTest",
   "user_id": 2
+}
+
+###
+
+POST http://localhost:8081/Session
+Content-Type: application/json
+
+{
+  "userName": "Test12332"
 }
 
 ###

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Quarkus Chat!</title>
+    <title>Braintastic!</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -28,7 +28,7 @@
     <nav class="navbar navbar-default navbar-pf" role="navigation">
       <div class="navbar-header">
         <a class="navbar-brand" href="/">
-          <p><strong>>> Quarkus Chat!</strong></p>
+          <p><strong>>> Braintastic! Web-Socket test</strong></p>
         </a>
       </div>
     </nav>
@@ -109,7 +109,7 @@
             $("#connect").attr("disabled", true);
             $("#name").attr("disabled", true);
             $("#msg").focus();
-            var json = { name: name, password: "asd" };
+            var json = { name: name, password: "newPassword" };
             json = JSON.stringify(json);
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/user", true);

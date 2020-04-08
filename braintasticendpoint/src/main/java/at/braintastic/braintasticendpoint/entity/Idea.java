@@ -16,6 +16,9 @@ public class Idea {
     private String description;
     private String userName;
 
+    @ManyToOne
+    private Session session;
+
     public Idea(){}
 
     public Idea(String description, String user) {
