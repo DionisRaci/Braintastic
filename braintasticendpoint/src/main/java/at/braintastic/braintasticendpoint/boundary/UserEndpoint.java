@@ -13,6 +13,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 @Path("/user")
@@ -36,6 +41,23 @@ public class UserEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public User getUserByName(@PathParam("username") String username) {
         return userRepository.findByName(username);
+    }
+
+    @GET
+    @Path("/Token")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getToken(){
+        List<String> lines = Collections.emptyList();
+        try{
+            lines = Files
+                    .readAllLines(
+                            Paths.get("../utility/Token.txt"),
+                            StandardCharsets.UTF_8);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        String token = lines.get(0);
+        return Response.ok(token).build();
     }
 
     @GET
@@ -78,6 +100,7 @@ public class UserEndpoint {
                 userRepository.insertUser(u);
             }
         }
+
         return Response.status(200).build();
     }
 
