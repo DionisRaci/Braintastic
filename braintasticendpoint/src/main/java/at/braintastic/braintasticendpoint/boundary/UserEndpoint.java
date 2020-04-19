@@ -47,17 +47,7 @@ public class UserEndpoint {
     @Path("/Token")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getToken(){
-        List<String> lines = Collections.emptyList();
-        try{
-            lines = Files
-                    .readAllLines(
-                            Paths.get("../utility/Token.txt"),
-                            StandardCharsets.UTF_8);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        String token = lines.get(0);
-        return Response.ok(token).build();
+        return Response.ok("token").build();
     }
 
     @GET
@@ -129,4 +119,9 @@ public class UserEndpoint {
         }
         return Response.noContent().build();
     }
+
+
+
+
+
 }
