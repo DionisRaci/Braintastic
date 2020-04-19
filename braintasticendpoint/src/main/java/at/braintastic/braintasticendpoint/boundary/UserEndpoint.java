@@ -47,7 +47,7 @@ public class UserEndpoint {
     @Path("/Token")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getToken(){
-        return Response.ok("token").build();
+        return Response.ok(token).build();
     }
 
     @GET
