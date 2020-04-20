@@ -1,5 +1,6 @@
 package at.braintastic.braintasticendpoint.control;
 
+<<<<<<< HEAD
 import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 
@@ -8,6 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+=======
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
+>>>>>>> 778f299d5de12dc81c8938f7fcaf1606cf29a248
 
 @ApplicationScoped
 @Transactional

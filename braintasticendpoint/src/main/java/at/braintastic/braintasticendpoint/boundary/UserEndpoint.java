@@ -37,7 +37,12 @@ public class UserEndpoint {
     public User getUserByName(@PathParam("username") String username) {
         return userRepository.findByName(username);
     }
-
+    @GET
+    @Path("/Token")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getToken() {
+        return Response.ok(token).build();
+    }
     @GET
     @Path("/id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,7 +60,7 @@ public class UserEndpoint {
                 try {
                     User u = userRepository.findByName(name);
                     if (u != null){
-                        return Response.status(Status.STATUS_UNKNOWN).build();
+                        return Response.serverError().build();
                     }
                 }catch (Exception e){
                     String password = value.asJsonObject().getString("password");
@@ -69,7 +74,7 @@ public class UserEndpoint {
             try {
                 User u = userRepository.findByName(name);
                 if(u != null){
-                    return Response.status(Status.STATUS_UNKNOWN).build();
+                    return Response.serverError().build();
                 }
             }catch (Exception e){
 
@@ -106,4 +111,7 @@ public class UserEndpoint {
         }
         return Response.noContent().build();
     }
+
+
+    String token = "eyJraWQiOiIvcHJpdmF0ZUtleS5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3F1YXJrdXMuaW8vdXNpbmctand0LXJiYWMiLCJqdGkiOiJhLTEyMyIsInN1YiI6Impkb2UtdXNpbmctand0LXJiYWMiLCJ1cG4iOiJqZG9lQHF1YXJrdXMuaW8iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqZG9lIiwiYXVkIjoidXNpbmctand0LXJiYWMiLCJiaXJ0aGRhdGUiOiIyMDAxLTA3LTEzIiwicm9sZU1hcHBpbmdzIjp7Imdyb3VwMSI6Ikdyb3VwMU1hcHBlZFJvbGUifSwiZ3JvdXBzIjpbIlVzZXIiXSwiaWF0IjoxNTg3Mzc0ODA3LCJleHAiOjUxODczNzQ4MDYsImF1dGhfdGltZSI6MTU4NzM3NDgwN30.UruCwvFw35qQ_X7MmhnFuTzRhTXLGbAl70-YLiGBKL46Ae5VhgkXcdLEwAytPB90c_iaDpQO1sq1KBLMR3JCsckjkCXMmqr0CFo_oeEQSwvQf_N7Ytipe-QYI7r1vd5Ss6Z5-iiEEvJkUj60q2kC4XbOHK0Yn5hUZJum8xjjfRoZbttlKDzOZzEv2GU8V-2aMVzQpmJzXlWgOpS4_z765kYQ3mRfIDdlt-zouzokKPzuHVHszJhz4Y-zBjyKRj19K2Bngjq-cYkMLN7dYmn5RKEThPoR4IHiUU5bZAmubQrkOf0D3ZCe3YmVMo1zrV2oWYj4mDcybSCHgbAr1BVyhA\n";
 }

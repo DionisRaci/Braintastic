@@ -43,7 +43,7 @@ public class TokenSecuredResource {
 
     @GET()
     @Path("roles-allowed")
-    @RolesAllowed({"Admin", "Member"})
+    @RolesAllowed("User")
     @Produces(MediaType.TEXT_PLAIN)
     public String helloRolesAllowed(@Context SecurityContext ctx) {
         Principal caller =  ctx.getUserPrincipal();
