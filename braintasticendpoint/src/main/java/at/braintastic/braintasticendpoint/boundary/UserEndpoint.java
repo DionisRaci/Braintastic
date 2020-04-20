@@ -38,9 +38,9 @@ public class UserEndpoint {
         return userRepository.findByName(username);
     }
     @GET
-    @Path("/{username}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getToken(@PathParam("username") String username) {
+    @Path("/Token")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getToken() {
         return Response.ok(token).build();
     }
     @GET
