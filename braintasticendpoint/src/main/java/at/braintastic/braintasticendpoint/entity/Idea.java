@@ -8,6 +8,10 @@ import javax.persistence.*;
                 name = "Idea.findAll",
                 query = "select i from Idea i"
         ),
+        @NamedQuery(
+                name = "Idea.findBySession",
+                query = "select i from Idea i where i.session.id IN :SESSIONID"
+        ),
 })
 @Table(name = "BT_Idea", schema = "braintasticdb")
 public class Idea {
@@ -21,9 +25,10 @@ public class Idea {
 
     public Idea(){}
 
-    public Idea(String description, String user) {
+    public Idea(String description, String user, Session session) {
         this.description = description;
         this.userName = user;
+        this.session = session;
     }
 
     public long getId() {

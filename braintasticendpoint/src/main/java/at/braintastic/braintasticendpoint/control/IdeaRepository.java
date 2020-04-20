@@ -1,6 +1,7 @@
 package at.braintastic.braintasticendpoint.control;
 
 import at.braintastic.braintasticendpoint.entity.Idea;
+import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,7 +16,7 @@ public class IdeaRepository {
     @PersistenceContext
     EntityManager em;
 
-    public List<User> findAll() {
+    public List<Idea> findAll() {
         return em.createNamedQuery("Idea.findAll").getResultList();
     }
 
@@ -23,8 +24,8 @@ public class IdeaRepository {
         em.merge(idea);
     }
 
-    public void insertIdeaByString(String message, String u) {
-        Idea idea = new Idea(message, u);
+    public void insertIdeaByString(String message, String u, Session session) {
+        Idea idea = new Idea(message, u, session);
         em.merge(idea);
     }
 

@@ -5,15 +5,12 @@ GET http://localhost:8080/Idea
 GET http://localhost:8080/user?name=UsernameTest
 
 ###
-//8081 Bei Sandro, Der Port.
-GET http://localhost:8081/user/Token
+//8080 Bei Sandro, Der Port.
+GET http://localhost:8080/user/Token
 
-<<<<<<< HEAD
-POST http://localhost:8081/user
-=======
+POST http://localhost:8080/user
 ###
 POST http://localhost:8080/user
->>>>>>> 778f299d5de12dc81c8938f7fcaf1606cf29a248
 Content-Type: application/json
 
 {
@@ -23,7 +20,7 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8081/user/1
+PUT http://localhost:8080/user/1
 Content-Type: application/json
 
 {
@@ -37,17 +34,18 @@ DELETE http://localhost:8080/user/delete/1
 
 ###
 
-POST http://localhost:8081/Idea
+
+POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "description": "UsernameTest",
-  "user_id": 2
+  "name": "Test12332",
+  "password": "Hello1223"
 }
 
 ###
 
-POST http://localhost:8081/Session
+POST http://localhost:8080/Session
 Content-Type: application/json
 
 {
@@ -56,6 +54,31 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8081/Session
+POST http://localhost:8080/Idea
+Content-Type: application/json
+
+{
+  "description": "UsernameTest",
+  "userName": "Test12332",
+  "sessionId": 1
+}
+
+###
+GET http://localhost:8080/Session
+
+###
+
+GET http://localhost:8080/Idea/sessionId/1
+
+###
+
+POST http://localhost:8080/Idea
+Content-Type: application/json
+
+{
+  "description": "test#2",
+  "userName": "Test12332",
+  "sessionId": 1
+}
 
 ###

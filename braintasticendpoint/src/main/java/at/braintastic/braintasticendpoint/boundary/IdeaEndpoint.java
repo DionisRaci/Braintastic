@@ -1,8 +1,10 @@
 package at.braintastic.braintasticendpoint.boundary;
 
 import at.braintastic.braintasticendpoint.control.IdeaRepository;
+import at.braintastic.braintasticendpoint.control.SessionRepository;
 import at.braintastic.braintasticendpoint.control.UserRepository;
 import at.braintastic.braintasticendpoint.entity.Idea;
+import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 import netscape.javascript.JSObject;
 
@@ -19,12 +21,19 @@ public class IdeaEndpoint {
     @Inject
     IdeaRepository ideaRepository;
     @Inject
-    UserRepository userRepository;
+    SessionRepository sessionRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getAllUsers() {
+    public List<Idea> getAllIdeas() {
         return ideaRepository.findAll();
+    }
+
+    @GET
+    @Path("/sessionId/{sessionId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Idea> getAllIdeasBySession(@PathParam("sessionId") Long sessionId) {
+        return sessionRepository.findAllIdeas(sessionId);
     }
 
     @POST
@@ -32,7 +41,9 @@ public class IdeaEndpoint {
     public Response create(JsonObject idea){
         String userName = (idea.getString("userName"));
         String desc = idea.getString("description");
-        Idea i = new Idea(desc, userName);
+        Long sessionId = (long) idea.getInt("sessionId");
+        Session s = sessionRepository.findById(sessionId);
+        Idea i = new Idea(desc, userName, s);
         ideaRepository.insertIdea(i);
         return Response.status(200).build();
     }

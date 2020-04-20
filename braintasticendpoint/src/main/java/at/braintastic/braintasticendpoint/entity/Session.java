@@ -3,9 +3,15 @@ package at.braintastic.braintasticendpoint.entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "Session.findAll",
+                query = "select s from Session s"
+        ),
+})
 @Table(name = "BT_Session", schema = "braintasticdb")
 public class Session {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
