@@ -5,7 +5,10 @@ GET http://localhost:8080/Idea
 GET http://localhost:8080/user?name=UsernameTest
 
 ###
+//8081 Bei Sandro, Der Port.
+GET http://localhost:8081/user/Token
 
+###
 POST http://localhost:8080/user
 Content-Type: application/json
 
