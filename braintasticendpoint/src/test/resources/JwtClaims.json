@@ -7,13 +7,9 @@
   "aud": "using-jwt-rbac",
   "birthdate": "2001-07-13",
   "roleMappings": {
-    "group1": "Group1MappedRole",
-    "group2": "Group2MappedRole"
+    "group1": "Group1MappedRole"
   },
   "groups": [
-    "Member",
-    "Admin",
-    "Leader",
-    "Subscriber"
+    "User"
   ]
 }
