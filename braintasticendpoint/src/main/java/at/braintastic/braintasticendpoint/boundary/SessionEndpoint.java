@@ -41,12 +41,22 @@ public class SessionEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(JsonObject user){
-        String userName = "Test12332";
+        String userName = user.getString("userName");
         User u = userRepository.findByName(userName);
         Session s = new Session(u);
         sessionRepository.insertSession(s);
         return Response.status(200).build();
     }
+
+    @POST
+    @Path("addUser/{sessionId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(@PathParam("sessionId") Long sessionId,JsonObject user){
+        String userName = user.getString("userName");
+        sessionRepository.insertUser(userName, sessionId);
+        return Response.status(200).build();
+    }
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

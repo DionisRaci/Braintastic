@@ -42,7 +42,17 @@ public class SessionRepository {
     }
 
     public void delete(long id) {
-        Session u = findById(id);
-        em.remove(u);
+        Session s = findById(id);
+        em.remove(s);
+    }
+
+    public void insertUser(String u, Long sessionId) {
+        Session s = findById(sessionId);
+        s.insertUser(u);
+    }
+
+    public boolean checkUser(String userName, Long sessionId) {
+        Session s = findById(sessionId);
+        return s.checkusername(userName);
     }
 }

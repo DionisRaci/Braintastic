@@ -40,8 +40,12 @@ public class IdeaEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(JsonObject idea){
         String userName = (idea.getString("userName"));
-        String desc = idea.getString("description");
         Long sessionId = (long) idea.getInt("sessionId");
+        if (!sessionRepository.checkUser(userName, sessionId))
+        {
+            return Response.status(404, "user not found").build();
+        }
+        String desc = idea.getString("description");
         Session s = sessionRepository.findById(sessionId);
         Idea i = new Idea(desc, userName, s);
         ideaRepository.insertIdea(i);

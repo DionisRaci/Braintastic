@@ -25,11 +25,6 @@ public class UserEndpoint {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-     /* @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public User getGameByNameQuery(@QueryParam("name") String name){
-        return userRepository.findByName(name);
-    }*/
 
     @GET
     @Path("/{username}")
@@ -37,12 +32,14 @@ public class UserEndpoint {
     public User getUserByName(@PathParam("username") String username) {
         return userRepository.findByName(username);
     }
+
     @GET
     @Path("/Token")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getToken() {
         return Response.ok(token).build();
     }
+
     @GET
     @Path("/id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
