@@ -1,5 +1,6 @@
 package at.braintastic.braintasticendpoint.entity;
 
+import javax.mail.Part;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,32 +18,30 @@ public class Session {
     private long id;
 
     @ManyToOne
-    private User user;
+    private User host;
 
-    @ElementCollection
-    List<String> userNames = new LinkedList<String>();
+    @ManyToMany
+    List<Participant> participants = new LinkedList<Participant>();
 
     public Session(){}
     public Session(User user){
-        this.user = user;
-        userNames.add(user.getName());
+        this.host = user;
     }
 
     public long getId() {
         return id;
     }
 
-    public User getUser() { return user; }
+    public User getUser() { return host; }
 
     public void setUser(User user) {
-        this.user = user;
-        userNames.add(user.getName());
+        this.host = user;
     }
 
-    public void insertUser(String user) { userNames.add(user); }
+    public void insertUser(Participant p) { participants.add(p); }
 
     public boolean checkusername(String userName) {
-        if (userNames.contains(userName)) return true;
+        if (participants.contains(userName)) return true;
         return false;
     }
 }

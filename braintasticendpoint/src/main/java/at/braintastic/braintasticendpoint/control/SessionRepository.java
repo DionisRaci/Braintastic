@@ -1,6 +1,7 @@
 package at.braintastic.braintasticendpoint.control;
 
 import at.braintastic.braintasticendpoint.entity.Idea;
+import at.braintastic.braintasticendpoint.entity.Participant;
 import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class SessionRepository {
     @PersistenceContext
     EntityManager em;
+    ParticipantRepository participantRepository;
 
     public List<Session> findAll() {
         return em.createNamedQuery("Session.findAll").getResultList();
@@ -46,9 +48,10 @@ public class SessionRepository {
         em.remove(s);
     }
 
-    public void insertUser(String u, Long sessionId) {
+    public void insertUser(long participantId, Long sessionId) {
         Session s = findById(sessionId);
-        s.insertUser(u);
+        Participant p = participantRepository.findById(participantId);
+        s.insertUser(p);
     }
 
     public boolean checkUser(String userName, Long sessionId) {
