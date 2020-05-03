@@ -2,6 +2,7 @@ package at.braintastic.braintasticendpoint.entity;
 
 import javax.mail.Part;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Session {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    private List<Participant> participants = new LinkedList<Participant>();
+    private List<Participant> participants = new ArrayList<>();
 
     public Session(){}
     public Session(User user){
@@ -38,7 +39,8 @@ public class Session {
     public User getHost() { return host; }
 
     public List<Participant> getParticipants() {
-        return participants;
+        if (participants != null) return participants;
+        return null;
     }
 
     public void insertParticipant(Participant p) { participants.add(p); }

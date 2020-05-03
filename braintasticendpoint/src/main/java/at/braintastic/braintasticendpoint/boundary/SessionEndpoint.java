@@ -12,6 +12,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.logging.Logger;
+
 import at.braintastic.braintasticendpoint.entity.User;
 
 import javax.inject.Inject;
@@ -44,8 +46,8 @@ public class SessionEndpoint {
         String userName = user.getString("userName");
         User u = userRepository.findByName(userName);
         Session s = new Session(u);
-        sessionRepository.insertSession(s);
-        return Response.status(200).build();
+        s = sessionRepository.insertSession(s);
+        return Response.status(200).header("sessionId", s.getId()).build();
     }
 
     @POST

@@ -39,8 +39,8 @@ public class SessionRepository {
         return em.find(Session.class, id);
     }
 
-    public void insertSession(Session s) {
-        em.merge(s);
+    public Session insertSession(Session s) {
+        return em.merge(s);
     }
 
     public void delete(long id) {
