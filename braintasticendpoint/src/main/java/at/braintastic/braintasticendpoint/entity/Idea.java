@@ -11,13 +11,14 @@ import javax.persistence.*;
 })
 @Table(name = "BT_Idea", schema = "braintasticdb")
 public class Idea {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String description;
 
     public Idea(){}
 
-    public Idea(String description, String user, Session session) {
+    public Idea(String description) {
         this.description = description;
     }
 

@@ -1,9 +1,11 @@
 package at.braintastic.braintasticendpoint.boundary;
 
 import at.braintastic.braintasticendpoint.control.IdeaRepository;
+import at.braintastic.braintasticendpoint.control.ParticipantRepository;
 import at.braintastic.braintasticendpoint.control.SessionRepository;
 import at.braintastic.braintasticendpoint.control.UserRepository;
 import at.braintastic.braintasticendpoint.entity.Idea;
+import at.braintastic.braintasticendpoint.entity.Participant;
 import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 import netscape.javascript.JSObject;
@@ -22,6 +24,8 @@ public class IdeaEndpoint {
     IdeaRepository ideaRepository;
     @Inject
     SessionRepository sessionRepository;
+    @Inject
+    ParticipantRepository participantRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -40,15 +44,17 @@ public class IdeaEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(JsonObject idea){
         String userName = (idea.getString("userName"));
+        Participant p = participantRepository.findByName(userName);
         Long sessionId = (long) idea.getInt("sessionId");
-        if (!sessionRepository.checkUser(userName, sessionId))
+        if (!sessionRepository.checkUser(p, sessionId))
         {
             return Response.status(404, "user not found").build();
         }
         String desc = idea.getString("description");
-        Session s = sessionRepository.findById(sessionId);
-        Idea i = new Idea(desc, userName, s);
+        Idea i = new Idea(desc);
+        p.setIdea(i);
         ideaRepository.insertIdea(i);
+        participantRepository.insertParticipant(p);
         return Response.status(200).build();
     }
 

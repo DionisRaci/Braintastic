@@ -51,11 +51,11 @@ public class SessionRepository {
     public void insertUser(long participantId, Long sessionId) {
         Session s = findById(sessionId);
         Participant p = participantRepository.findById(participantId);
-        s.insertUser(p);
+        s.insertParticipant(p);
     }
 
-    public boolean checkUser(String userName, Long sessionId) {
+    public boolean checkUser(Participant p, Long sessionId) {
         Session s = findById(sessionId);
-        return s.checkusername(userName);
+        return s.checkParticipant(p);
     }
 }

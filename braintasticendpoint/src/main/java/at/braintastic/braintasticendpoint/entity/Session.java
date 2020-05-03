@@ -20,8 +20,11 @@ public class Session {
     @ManyToOne
     private User host;
 
-    @ManyToMany
-    List<Participant> participants = new LinkedList<Participant>();
+    @OneToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    private List<Participant> participants = new LinkedList<Participant>();
 
     public Session(){}
     public Session(User user){
@@ -32,16 +35,20 @@ public class Session {
         return id;
     }
 
-    public User getUser() { return host; }
+    public User getHost() { return host; }
 
-    public void setUser(User user) {
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void insertParticipant(Participant p) { participants.add(p); }
+
+    public void setHost(User user) {
         this.host = user;
     }
 
-    public void insertUser(Participant p) { participants.add(p); }
-
-    public boolean checkusername(String userName) {
-        if (participants.contains(userName)) return true;
+    public boolean checkParticipant(Participant p) {
+        if (participants.contains(p)) return true;
         return false;
     }
 }

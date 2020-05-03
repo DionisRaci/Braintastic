@@ -24,8 +24,8 @@ public class IdeaRepository {
         em.merge(idea);
     }
 
-    public void insertIdeaByString(String message, String u, Session session) {
-        Idea idea = new Idea(message, u, session);
+    public void insertIdeaByString(String message) {
+        Idea idea = new Idea(message);
         em.merge(idea);
     }
 

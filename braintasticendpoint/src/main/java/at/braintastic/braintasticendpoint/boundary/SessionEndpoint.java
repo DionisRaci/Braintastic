@@ -52,8 +52,8 @@ public class SessionEndpoint {
     @Path("addUser/{sessionId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("sessionId") Long sessionId,JsonObject user){
-        String userName = user.getString("userName");
-        sessionRepository.insertUser(userName, sessionId);
+        long hostId = user.getInt("userId");
+        sessionRepository.insertUser(hostId, sessionId);
         return Response.status(200).build();
     }
 
