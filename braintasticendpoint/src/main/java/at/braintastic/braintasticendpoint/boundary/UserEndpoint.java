@@ -29,10 +29,24 @@ public class UserEndpoint {
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUserByName(@PathParam("username") String username) {
+    public User getUserByName(@PathParam("username") String username)
+    {
         return userRepository.findByName(username);
     }
-
+    @POST
+    @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response sendLogin(@Context UriInfo info,User user)
+    {
+        User received = userRepository.findByName(user.getName());
+        if(received != null){
+            if(received.getPassword() != null
+                    && received.getPassword() == user.getPassword()){
+                return Response.status(200).build();
+            }else return Response.serverError().build();
+        }
+        return Response.serverError().build();
+    }
     @GET
     @Path("/Token")
     @Produces(MediaType.TEXT_PLAIN)
