@@ -13,7 +13,7 @@
               <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">
                   <div class="p-1 border-2 border-transparent text-white">
-                    <p>Welcome back, Tom!</p>
+                    <p>Welcome back, {{ username }}!</p>
                   </div>
 
                   <!-- Profile dropdown -->
@@ -92,7 +92,7 @@
         </div>
       </nav>
       <header class="pt-10 pb-4 flex">
-        <div class=" mx-auto px-4 sm:px-6 lg:px-8 w-1/2">
+        <div class=" mx-auto px-4 sm:px-6 lg:px-8 md:w-1/2 w-full">
           <h1 class="text-4xl leading-9 font-bold text-white">
             🏁 Start your idea session
           </h1>
@@ -101,32 +101,45 @@
     </div>
 
     <main class="-mt-32 flex">
-      <div class="max-w-7xl mx-auto pb-12 p-8 m-auto inline-block w-1/2 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto pb-12 p-8 m-auto inline-block w-full md:w-1/2 sm:px-6 lg:px-8">
         <!-- Replace with your content -->
         <div class="bg-white rounded-lg shadow px-8 py-6 sm:px-6 flex">
           <div class="w-full">
             <h2 class="text-2xl font-bold text-blue-700">Session name</h2>
             <div class="mt-1 relative rounded-md shadow-sm  border-gray-500">
-              <input class="outline-none form-input text-gray-700 block border-blue-400 border-b-2 p-4 w-full sm:text-sm sm:leading-5" placeholder="Write a meaningful name."/>
+              <input @change="isTitleEmpty" v-model="sessionTitle" class="outline-none form-input text-gray-700 block border-blue-400 border-b-2 p-4 w-full sm:text-lg sm:leading-5" placeholder="Write a meaningful name."/>
             </div>
+            <label
+              v-if="titleEmpty"
+              class="text-red-700">Please enter a session title.</label>
             <h2 class="text-2xl mt-4 font-bold text-blue-700">Session description</h2>
             <div class="mt-1 relative rounded-md shadow-sm ">
-              <textarea class="outline-none form-input block border-blue-400 border-b-2  p-4 w-full sm:text-sm sm:leading-5" placeholder="Write a brief descripotion and a clear goal of the session."/>
+              <textarea v-model="sessionDescription" @change="isDescriptionEmpty" class="outline-none text-gray-700 form-input block border-blue-400 border-b-2  p-4 w-full sm:text-lg sm:leading-5" placeholder="Write a brief descripotion and a clear goal of the session."/>
             </div>
+            <label
+              v-if="descriptionEmpty"
+              class="text-red-700">Please enter a session description.</label>
             <div>
               <div class="flex mt-10">
                 <span class="inline-flex rounded-md shadow-sm">
-                  <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-blue-700 hover:bg-blue-600 focus:outline-none focus:border-blue-900 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                  <button @click="onGenerateLink" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-blue-700 hover:bg-blue-600 focus:outline-none focus:border-blue-900 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
                     Generate your link
                   </button>
                 </span>
                 <div class="mt-1 relative rounded-md shadow-sm border-blue-400 border-b-2">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span class="text-gray-500 sm:text-sm sm:leading-5">
-                      http://
-                    </span>
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                    <p v-if="sessionId !== null" class="text-gray-700 text-sm sm:text-lg sm:leading-5">
+                      http://localhost:8080/session/join/{{sessionId}}
+                    </p>
                   </div>
-                  <input id="company_website" class="p-2 outline-none form-input block w-full pl-16 sm:pl-14 sm:text-sm sm:leading-5" placeholder="Here will be your link" />
+                </div>
+                <div>
+                  <p
+                  v-if="!sessionCreated && sessionCreated !== null"
+                  class="text-red-700 pt-2 pl-4">Something went wrong. Please try again!</p>
+                  <p
+                  v-if="sessionCreated"
+                  class="text-green-700 pt-2 pl-4">Session created successfully!</p>
                 </div>
               </div>
 
@@ -142,8 +155,59 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios'
 
+const baseURL = 'http://localhost:8080/'
+
+export default {
+  data () {
+    return {
+      username: this.$route.params.id,
+      sessionTitle: null,
+      sessionDescription: null,
+      titleEmpty: false,
+      descriptionEmpty: false,
+      sessionCreated: null,
+      sessionId: null
+    }
+  },
+  methods: {
+    isTitleEmpty () {
+      if (this.sessionTitle === '' || this.sessionTitle === null) {
+        this.titleEmpty = true
+        return true
+      } else {
+        this.titleEmpty = false
+        return false
+      }
+    },
+    isDescriptionEmpty () {
+      if (this.sessionDescription === '' || this.sessionDescription === null) {
+        this.descriptionEmpty = true
+        return true
+      } else {
+        this.descriptionEmpty = false
+        return false
+      }
+    },
+    onGenerateLink () {
+      if (!this.isTitleEmpty() || !this.isDescriptionEmpty()) {
+        // eslint-disable-next-line no-unused-vars
+        const res = axios.post(baseURL + 'Session', { userName: this.username })
+          .then(response => {
+            console.log(response)
+            if (response.status === 200) {
+              this.sessionCreated = true
+            }
+          })
+          .catch(error => {
+            this.sessionCreated = false
+            console.log(error.response)
+            console.log(this.usernameAvailable = false)
+          })
+      }
+    }
+  }
 }
 </script>
 

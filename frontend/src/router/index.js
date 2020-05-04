@@ -25,11 +25,11 @@ const routes = [
     children: [
       { path: '/login', component: Login, name: 'login' },
       { path: '/register', component: Register, name: 'register' },
-      { path: '/register-successful', component: RegisterSuccessful, name: 'register-successful' }
+      { path: '/register-successful/:id', component: RegisterSuccessful, name: 'register-successful' }
     ]
 
   },
-  { path: '/create', component: CreateSession, name: 'create' },
+  { path: '/create/:id', component: CreateSession, name: 'create' },
   { path: '*', redirect: '/register' }
   /*,
   {

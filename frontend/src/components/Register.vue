@@ -139,7 +139,7 @@ export default {
               console.log(response.status)
               console.log(response)
               if (response.status === 200) {
-                router.push('register-successful')
+                router.push('/register-successful/' + this.username)
               }
             })
             .catch(error => {
