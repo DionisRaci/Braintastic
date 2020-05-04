@@ -3,7 +3,7 @@ services:
   postgres:
     container_name: braintastic-db
     image: postgres:11.6
-    restart: alwayst
+    restart: always
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:

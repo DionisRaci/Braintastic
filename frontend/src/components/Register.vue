@@ -21,6 +21,7 @@
                   id="email"
                   type="email"
                   required
+                  placeholder="Your email"
                   class="block w-full px-3 py-2 transition duration-150 ease-in-out border border-gray-700 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
               </div>
@@ -39,6 +40,7 @@
                   id="password"
                   type="password"
                   required
+                  placeholder="Your password"
                   class="block w-full px-3 py-2 transition duration-150 ease-in-out border border-gray-700 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
               </div>
@@ -58,12 +60,21 @@
                   id="repPassword"
                   type="password"
                   required
+                  placeholder="Repeat password"
                   class="block w-full px-3 py-2 transition duration-150 ease-in-out border border-gray-700 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
               </div>
               <label
               v-if="passwordsDontMatch"
               class="text-red-700">Repeated password does not match.</label>
+            </div>
+
+            <div v-if="!filledAllFields" class="mt-6 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" role="alert">
+              <strong class="font-bold">Stop! </strong>
+              <span class="block sm:inline">First fill in all the fields</span>
+            </div>
+            <div v-if="!usernameAvailable" class="mt-6 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" role="alert">
+              <span class="block sm:inline">Username is not available!</span>
             </div>
 
             <div class="mt-6">
@@ -78,10 +89,10 @@
               </span>
             </div>
             <p class="mt-2 text-md leading-5 text-gray-900 max-w">
-          Already have an account? 
+          Already have an account?
           <router-link
             to="login"
-            class="font-medium text-blue-700 transition duration-150 ease-in-out hover:text-blue-500 focus:outline-none focus:underline"
+            class="font-medium text-blue-700 transition duration-150 ease-in-out hover:text-blue-500 focus:outline-none focus:underline disabled"
           >
             Sign in
           </router-link>
@@ -92,40 +103,53 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 
-const baseURL = "http://localhost:8080/";
+const baseURL = 'http://localhost:8080/'
 
 export default {
-  data(){
-    return{
+  data () {
+    return {
       username: null,
       password: null,
       repPassword: null,
-      passwordsDontMatch: false
+      passwordsDontMatch: false,
+      filledAllFields: true,
+      usernameAvailable: true
     }
   },
   methods: {
-    onSignUp() {
-      try {
-        const res = 
-        axios.post(baseURL + "user", 
-        { name: this.username, password: this.password})
-      } catch (ex){
-        console.error(ex);
+    onSignUp () {
+      if (this.username == null || this.password == null || this.repPassword == null) {
+        this.filledAllFields = false
+      } else {
+        this.filledAllFields = true
+        if (this.checkIfPasswordsMatch()) {
+          // eslint-disable-next-line no-unused-vars
+          const res =
+          axios.post(baseURL + 'user', { name: this.username, password: this.password })
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error.response)
+              console.log(this.usernameAvailable = false)
+            })
+        }
       }
     },
-    checkIfPasswordsMatch(){
-      if(this.password != this.repPassword){
-        this.passwordsDontMatch = true;
+    checkIfPasswordsMatch () {
+      if (this.password !== this.repPassword) {
+        this.passwordsDontMatch = true
+        return false
       } else {
-        this.passwordsDontMatch = false;
+        this.passwordsDontMatch = false
+        return true
       }
     }
 
-
   }
-};
+}
 </script>
 
 <style></style>

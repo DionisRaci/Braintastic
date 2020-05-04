@@ -1,21 +1,12 @@
 <template>
   <div>
-    <login></login>
-    <register></register>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import WebsocketGreetings from "./components/WebsocketGreetings.vue";
-import Login from "./components/Login.vue";
-import Register from "./components/Register.vue";
-
 export default {
-  components: {
-    WebsocketGreetings,
-    Login,
-    Register
-  }
+  components: {}
 };
 </script>
 
