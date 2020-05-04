@@ -18,6 +18,7 @@
               <div class="mt-1 rounded-md shadow-sm">
                 <input
                   v-model="username"
+                  @change="validateEmail(username)"
                   id="email"
                   type="email"
                   required
@@ -25,6 +26,9 @@
                   class="block w-full px-3 py-2 transition duration-150 ease-in-out border border-gray-700 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
               </div>
+              <label
+              v-if="!isValidEmail"
+              class="text-red-700">Enter a valid E-mail adress</label>
             </div>
 
             <div class="mt-6">
@@ -105,17 +109,21 @@
 <script>
 import axios from 'axios'
 
+import router from '@/router'
+
 const baseURL = 'http://localhost:8080/'
 
 export default {
   data () {
     return {
-      username: null,
+      username: '',
       password: null,
       repPassword: null,
+      isValidEmail: true,
       passwordsDontMatch: false,
       filledAllFields: true,
-      usernameAvailable: true
+      usernameAvailable: true,
+      givenResponse: null
     }
   },
   methods: {
@@ -124,12 +132,15 @@ export default {
         this.filledAllFields = false
       } else {
         this.filledAllFields = true
-        if (this.checkIfPasswordsMatch()) {
+        if (this.checkIfPasswordsMatch() || this.validateEmail(this.username)) {
           // eslint-disable-next-line no-unused-vars
-          const res =
-          axios.post(baseURL + 'user', { name: this.username, password: this.password })
+          const res = axios.post(baseURL + 'user', { name: this.username, password: this.password })
             .then(response => {
+              console.log(response.status)
               console.log(response)
+              if (response.status === 200) {
+                router.push('register-successful')
+              }
             })
             .catch(error => {
               console.log(error.response)
@@ -146,8 +157,12 @@ export default {
         this.passwordsDontMatch = false
         return true
       }
+    },
+    validateEmail (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      this.isValidEmail = re.test(String(email).toLowerCase())
+      return re.test(String(email).toLowerCase())
     }
-
   }
 }
 </script>

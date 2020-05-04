@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Access from '../views/Access.vue'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
+import RegisterSuccessful from '../components/RegisterSuccessful.vue'
+import CreateSession from '../views/CreateSession.vue'
 
 Vue.use(VueRouter)
 
@@ -22,10 +24,12 @@ const routes = [
     },
     children: [
       { path: '/login', component: Login, name: 'login' },
-      { path: '/register', component: Register, name: 'register' }
+      { path: '/register', component: Register, name: 'register' },
+      { path: '/register-successful', component: RegisterSuccessful, name: 'register-successful' }
     ]
 
   },
+  { path: '/create', component: CreateSession, name: 'create' },
   { path: '*', redirect: '/register' }
   /*,
   {
