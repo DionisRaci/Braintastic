@@ -47,7 +47,8 @@ public class SessionEndpoint {
         User u = userRepository.findByName(userName);
         Session s = new Session(u);
         s = sessionRepository.insertSession(s);
-        return Response.status(200).header("sessionId", s.getId()).build();
+        //return Response.status(200).header("sessionId", s.getId()).build();
+        return Response.ok(s.getId()).build();
     }
 
     @POST
