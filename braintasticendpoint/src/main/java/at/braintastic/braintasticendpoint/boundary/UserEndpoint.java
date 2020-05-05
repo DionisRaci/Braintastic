@@ -50,7 +50,7 @@ public class UserEndpoint {
                 return Response.serverError().build();
             }
             boolean validated = PasswordHash.validatePassword(password,received.getPassword());
-            if(validated) return Response.status(200).build();
+            if(validated) return Response.ok(token).build();
         }catch (Exception e){
             return Response.serverError().build();
         }
