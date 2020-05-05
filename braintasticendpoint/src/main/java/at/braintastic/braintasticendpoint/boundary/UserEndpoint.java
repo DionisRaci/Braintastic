@@ -2,7 +2,9 @@ package at.braintastic.braintasticendpoint.boundary;
 
 import at.braintastic.braintasticendpoint.control.UserRepository;
 import at.braintastic.braintasticendpoint.entity.User;
+import at.braintastic.braintasticendpoint.utility.PasswordHash;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonValue;
@@ -13,6 +15,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 @Path("/user")
@@ -36,14 +40,19 @@ public class UserEndpoint {
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sendLogin(@Context UriInfo info,User user)
+    public Response sendLogin(@Context UriInfo info,JsonValue jsonValue)
     {
-        User received = userRepository.findByName(user.getName());
-        if(received != null){
-            if(received.getPassword() != null
-                    && received.getPassword() == user.getPassword()){
-                return Response.status(200).build();
-            }else return Response.serverError().build();
+        String name = jsonValue.asJsonObject().getString("name");
+        try {
+            User received  = userRepository.findByName(name);
+            String password = jsonValue.asJsonObject().getString("password");
+            if(received == null){
+                return Response.serverError().build();
+            }
+            boolean validated = PasswordHash.validatePassword(password,received.getPassword());
+            if(validated) return Response.status(200).build();
+        }catch (Exception e){
+            return Response.serverError().build();
         }
         return Response.serverError().build();
     }
