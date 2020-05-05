@@ -1,9 +1,11 @@
 package at.braintastic.braintasticendpoint.control;
 
+import at.braintastic.braintasticendpoint.entity.Participant;
 import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -14,9 +16,13 @@ import java.util.List;
 public class SessionRepository {
     @PersistenceContext
     EntityManager em;
+    @Inject
+    ParticipantRepository participantRepository;
+    @Inject
+    UserRepository userRepository;
 
     public List<Session> findAll() {
-        return em.createNamedQuery("User.findAll").getResultList();
+        return em.createNamedQuery("Session.findAll").getResultList();
     }
 
     public User findByName(String username) {
@@ -33,7 +39,7 @@ public class SessionRepository {
         em.merge(s);
     }
 
-    public void updateUser(User newUser, User user) {
+    public void updateHost(User newUser, User user) {
         user.setName(newUser.getName());
         user.setPassword(newUser.getPassword());
         em.merge(user);
@@ -42,5 +48,12 @@ public class SessionRepository {
     public void delete(long id) {
         Session u = findById(id);
         em.remove(u);
+    }
+
+    public Session addParticipant(String name, Long sessionId) {
+        Session s = findById(sessionId);
+        Participant p = participantRepository.findByName(name);
+        s.insertParticipant(p);
+        return em.merge(s);
     }
 }

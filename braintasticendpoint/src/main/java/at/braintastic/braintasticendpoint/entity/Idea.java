@@ -14,16 +14,15 @@ public class Idea {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String description;
-    private String userName;
 
     @ManyToOne
-    private Session session;
+    @JoinColumn(name = "bt_participant_id")
+    private Participant participant;
 
     public Idea(){}
 
-    public Idea(String description, String user) {
+    public Idea(String description) {
         this.description = description;
-        this.userName = user;
     }
 
     public long getId() {
@@ -34,15 +33,15 @@ public class Idea {
         return description;
     }
 
+    public Participant getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
+    }
+
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getUser() {
-        return userName;
-    }
-
-    public void setUser(String user) {
-        this.userName = user;
     }
 }

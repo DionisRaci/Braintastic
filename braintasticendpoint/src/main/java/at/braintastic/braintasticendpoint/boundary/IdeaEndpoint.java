@@ -1,8 +1,10 @@
 package at.braintastic.braintasticendpoint.boundary;
 
 import at.braintastic.braintasticendpoint.control.IdeaRepository;
+import at.braintastic.braintasticendpoint.control.ParticipantRepository;
 import at.braintastic.braintasticendpoint.control.UserRepository;
 import at.braintastic.braintasticendpoint.entity.Idea;
+import at.braintastic.braintasticendpoint.entity.Participant;
 import at.braintastic.braintasticendpoint.entity.User;
 import netscape.javascript.JSObject;
 
@@ -19,7 +21,7 @@ public class IdeaEndpoint {
     @Inject
     IdeaRepository ideaRepository;
     @Inject
-    UserRepository userRepository;
+    ParticipantRepository participantRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -32,8 +34,11 @@ public class IdeaEndpoint {
     public Response create(JsonObject idea){
         String userName = (idea.getString("userName"));
         String desc = idea.getString("description");
-        Idea i = new Idea(desc, userName);
-        ideaRepository.insertIdea(i);
+        Idea i = new Idea(desc);
+        Participant p = participantRepository.findByName(userName);
+        i = ideaRepository.insertIdea(i);
+        p.insertIdea(i);
+        participantRepository.insertParticipant(p);
         return Response.status(200).build();
     }
 

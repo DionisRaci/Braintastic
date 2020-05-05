@@ -1,6 +1,8 @@
 package at.braintastic.braintasticendpoint.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "BT_Session", schema = "braintasticdb")
@@ -9,18 +11,33 @@ public class Session {
     private long id;
 
     @ManyToOne
-    private User user;
+    private User host;
 
-    public Session(){}
-    public Session(User user){
-        this.user = user;
+    @OneToMany
+    private List<Participant> participants = new ArrayList<>();
+
+    public Session(){
+    }
+
+    public Session(User host){
+        this.host = host;
     }
 
     public long getId() {
         return id;
     }
 
-    public User getUser() { return user; }
+    public User getHost() { return host; }
 
-    public void setUser(User user) { this.user = user; }
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
+    }
+
+    public void insertParticipant(Participant p) {
+        participants.add(p);
+    }
 }

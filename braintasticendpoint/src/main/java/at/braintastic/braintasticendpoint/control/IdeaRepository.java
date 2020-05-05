@@ -19,14 +19,10 @@ public class IdeaRepository {
         return em.createNamedQuery("Idea.findAll").getResultList();
     }
 
-    public void insertIdea(Idea idea) {
-        em.merge(idea);
+    public Idea insertIdea(Idea idea) {
+        return em.merge(idea);
     }
 
-    public void insertIdeaByString(String message, String u) {
-        Idea idea = new Idea(message, u);
-        em.merge(idea);
-    }
 
     public void delete(long id) {
         Idea i = findById(id);
