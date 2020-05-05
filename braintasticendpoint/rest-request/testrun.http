@@ -1,0 +1,47 @@
+POST http://localhost:8081/Participant
+Content-Type: application/json
+
+{
+  "name": "ahayes"
+}
+
+###
+
+POST http://localhost:8081/user
+Content-Type: application/json
+
+{
+  "name": "Test12332",
+  "password": "Hello1223"
+}
+
+###
+
+POST http://localhost:8081/Session
+Content-Type: application/json
+
+{
+  "userName": "Test12332"
+}
+###
+
+POST http://localhost:8081/Session/addParticipant/0
+Content-Type: application/json
+
+{
+  "name": "ahayes"
+}
+###
+
+POST http://localhost:8081/Idea
+Content-Type: application/json
+
+{
+  "description": "test#2",
+  "userName": "ahayes"
+}
+###
+GET http://localhost:8081/Session
+###
+GET http://localhost:8081/Participant
+###
