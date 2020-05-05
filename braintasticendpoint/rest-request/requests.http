@@ -28,8 +28,18 @@ POST http://localhost:8081/user
 Content-Type: application/json
 
 {
-  "name": "Dionis der User",
-  "password": "Passwort17"
+  "name": "Tests",
+  "password": "Test123"
+}
+
+###
+
+POST http://localhost:8081/user/login
+Content-Type: application/json
+
+{
+  "name": "Tests",
+  "password": "Test123"
 }
 
 ###
