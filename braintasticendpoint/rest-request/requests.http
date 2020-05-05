@@ -23,13 +23,13 @@ Content-Type: application/json
 DELETE http://localhost:8081/user/delete/1
 
 ###
-
+### TEST USER #################
 POST http://localhost:8081/user
 Content-Type: application/json
 
 {
-  "name": "Dionis der User",
-  "password": "Passwort17"
+  "name": "gabriel@aigner.at",
+  "password": "gab"
 }
 
 
@@ -39,8 +39,8 @@ POST http://localhost:8081/user/login
 Content-Type: application/json
 
 {
-  "name": "Dionis der User",
-  "password": "Passwort17"
+  "name": "gabriel@aigner.at",
+  "password": "gab"
 }
 
 
@@ -50,7 +50,7 @@ POST http://localhost:8081/user
 Content-Type: application/json
 
 {
-  "name": "Test12332",
+  "name": "gabriel@aigner.at",
   "password": "Hello1223"
 }
 
@@ -60,7 +60,7 @@ POST http://localhost:8081/Session
 Content-Type: application/json
 
 {
-  "userName": "Test12332"
+  "userName": "gabriel@aigner.at"
 }
 
 ###
@@ -69,8 +69,8 @@ POST http://localhost:8081/Idea
 Content-Type: application/json
 
 {
-  "description": "UsernameTest",
-  "userName": "Test12332",
+  "description": "Something cool",
+  "userName": "gabriel@aigner.at",
   "sessionId": 1
 }
 

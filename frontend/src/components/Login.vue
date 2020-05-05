@@ -71,6 +71,11 @@
               <span class="block sm:inline">First fill in all the fields</span>
             </div>
 
+            <div v-if="!userIsCorrect" class="mt-6 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" role="alert">
+              <strong class="font-bold">Sorry! </strong>
+              <span class="block sm:inline">Wrong username or password.</span>
+            </div>
+
             <div class="mt-6">
               <span class="block w-full rounded-md shadow-sm">
                 <button
@@ -79,6 +84,13 @@
                   class="flex justify-center w-full px-4 py-2 text-md font-medium text-white transition duration-150 ease-in-out bg-blue-700 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
                 >
                   Sign in
+                </button>
+                <button
+                  @click="getToken"
+                  type="submit"
+                  class="flex justify-center w-full px-4 py-2 text-md font-medium text-white transition duration-150 ease-in-out bg-blue-700 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
+                >
+                  getToken
                 </button>
               </span>
             </div>
@@ -111,7 +123,9 @@ export default {
       isValidEmail: true,
       filledAllFields: true,
       usernameAvailable: true,
-      givenResponse: null
+      givenResponse: null,
+      userIsCorrect: true,
+      token: ''
     }
   },
   methods: {
@@ -122,15 +136,20 @@ export default {
         this.filledAllFields = true
         if (this.validateEmail(this.username)) {
           // eslint-disable-next-line no-unused-vars
-          const res = axios.post(baseURL + 'user/login', { id: 1, username: this.username, password: this.password })
+          const res = axios.post(baseURL + 'user/login', { name: this.username, password: this.password })
             .then(response => {
               console.log(response.status)
+              console.log(response.headers.sessionId)
+
               console.log(response)
               if (response.status === 200) {
                 router.push('/create/' + this.username)
+              } else {
+                this.userIsCorrect = false
               }
             })
             .catch(error => {
+              this.userIsCorrect = false
               console.log(error.response)
               console.log(this.usernameAvailable = false)
             })
@@ -141,6 +160,20 @@ export default {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       this.isValidEmail = re.test(String(email).toLowerCase())
       return re.test(String(email).toLowerCase())
+    },
+    getToken () {
+      // eslint-disable-next-line no-unused-vars
+      const res = axios.get(baseURL + 'user/Token')
+        .then(response => {
+          console.log(response.status)
+          console.log(response.data)
+          this.token = response.data
+          console.error(this.token)
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error.response)
+        })
     }
   }
 }
