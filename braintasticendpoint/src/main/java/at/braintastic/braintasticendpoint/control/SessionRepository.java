@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 
 @ApplicationScoped
@@ -18,17 +19,15 @@ public class SessionRepository {
     EntityManager em;
     @Inject
     ParticipantRepository participantRepository;
-    @Inject
-    UserRepository userRepository;
 
     public List<Session> findAll() {
-        return em.createNamedQuery("Session.findAll").getResultList();
+        return em.createNamedQuery("Session.findAll", Session.class).getResultList();
     }
 
-    public User findByName(String username) {
-        return em.createNamedQuery("User.findByName", User.class)
-                .setParameter("NAME", '%' + username + '%')
-                .getSingleResult();
+    public List<Participant> findAllParticipants(long sessionId) {
+        return em.createNamedQuery("Session.findAllParticipants")
+                .setParameter("ID", sessionId)
+                .getResultList();
     }
 
     public Session findById(Long id) {
@@ -55,5 +54,16 @@ public class SessionRepository {
         Participant p = participantRepository.findByName(name);
         s.insertParticipant(p);
         return em.merge(s);
+    }
+    public Session addParticipant(Participant p, Long sessionId) {
+        Session s = findById(sessionId);
+        s.insertParticipant(p);
+        return em.merge(s);
+    }
+
+    public User findHost(long sessionId) {
+        return em.createNamedQuery("Session.findHost", User.class)
+                .setParameter("ID", sessionId)
+                .getSingleResult();
     }
 }

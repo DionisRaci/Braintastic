@@ -29,27 +29,19 @@ PUT http://localhost:8081/user/1
 Content-Type: application/json
 
 {
-<<<<<<< Updated upstream
   "name": "TestUsername",
   "password": "Hello123"
-=======
-  "description": "UsernameTest",
-  "userName": "ahayes"
->>>>>>> Stashed changes
 }
 
 ###
 
-<<<<<<< Updated upstream
 DELETE http://localhost:8080/user/delete/1
-=======
 ###
 GET http://localhost:8081/Participant
 
 ###
 
 GET http://localhost:8081/Idea/sessionId/1
->>>>>>> Stashed changes
 
 ###
 
@@ -57,10 +49,6 @@ POST http://localhost:8081/Idea
 Content-Type: application/json
 
 {
-<<<<<<< Updated upstream
-  "description": "UsernameTest",
-  "user_id": 2
-=======
   "description": "test#2",
   "userName": "Test12332"
 }
@@ -72,7 +60,6 @@ Content-Type: application/json
 
 {
   "name": "ahayes"
->>>>>>> Stashed changes
 }
 
 ###

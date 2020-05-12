@@ -15,8 +15,8 @@ public class IdeaRepository {
     @PersistenceContext
     EntityManager em;
 
-    public List<User> findAll() {
-        return em.createNamedQuery("Idea.findAll").getResultList();
+    public List<Idea> findAll() {
+        return em.createNamedQuery("Idea.findAll", Idea.class).getResultList();
     }
 
     public Idea insertIdea(Idea idea) {

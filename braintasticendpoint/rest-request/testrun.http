@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:8081/Idea
+POST http://localhost:8081/Idea/0
 Content-Type: application/json
 
 {
@@ -44,4 +44,14 @@ Content-Type: application/json
 GET http://localhost:8081/Session
 ###
 GET http://localhost:8081/Participant
+###
+
+POST http://localhost:8081/Idea/0
+Content-Type: application/json
+
+{
+  "description": "test#2",
+  "userName": "Test12332"
+}
+
 ###

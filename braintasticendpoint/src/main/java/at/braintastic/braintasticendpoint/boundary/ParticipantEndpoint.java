@@ -26,13 +26,13 @@ public class ParticipantEndpoint {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(@Context UriInfo info, JsonValue jsonValue) {
+    public Response create(@Context UriInfo info, @PathParam("id") long id, JsonValue jsonValue) {
         if(jsonValue.getValueType() == JsonValue.ValueType.ARRAY) {
             JsonArray jsonArray = jsonValue.asJsonArray();
             for (JsonValue value : jsonArray) {
                 String name = value.asJsonObject().getString("name");
                 try {
-                    Participant u = participantRepository.findByName(name);
+                    Participant u = participantRepository.findByNameInSession(name,id);
                     if (u != null){
                         return Response.serverError().build();
                     }
@@ -45,7 +45,7 @@ public class ParticipantEndpoint {
         else {
             String name = jsonValue.asJsonObject().getString("name");
             try {
-                Participant u = participantRepository.findByName(name);
+                Participant u = participantRepository.findByNameInSession(name, id);
                 if(u != null){
                     return Response.serverError().build();
                 }

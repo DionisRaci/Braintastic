@@ -10,6 +10,14 @@ import java.util.List;
                 name = "Session.findAll",
                 query = "select s from Session s"
         ),
+        @NamedQuery(
+                name = "Session.findAllParticipants",
+                query = "select s.participants from Session s where s.id = :ID"
+        ),
+        @NamedQuery(
+                name = "Session.findHost",
+                query = "select s.host from Session s where s.id = :ID"
+        ),
 })
 @Table(name = "BT_Session", schema = "braintasticdb")
 public class Session {
