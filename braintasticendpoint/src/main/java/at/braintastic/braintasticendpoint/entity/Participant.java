@@ -23,7 +23,7 @@ public class Participant{
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "participant")
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Idea> ideas = new ArrayList<>();
 
 

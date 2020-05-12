@@ -15,10 +15,6 @@ public class Idea {
     private long id;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "bt_participant_id")
-    private Participant participant;
-
     public Idea(){}
 
     public Idea(String description) {
@@ -33,13 +29,13 @@ public class Idea {
         return description;
     }
 
-    public Participant getParticipant() {
+    /*public Participant getParticipant() {
         return participant;
     }
 
     public void setParticipant(Participant participant) {
         this.participant = participant;
-    }
+    }*/
 
     public void setDescription(String description) {
         this.description = description;

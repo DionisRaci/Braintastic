@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "Session.findAll",
+                query = "select s from Session s"
+        ),
+})
 @Table(name = "BT_Session", schema = "braintasticdb")
 public class Session {
     @Id
@@ -13,7 +19,7 @@ public class Session {
     @ManyToOne
     private User host;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Participant> participants = new ArrayList<>();
 
     public Session(){
