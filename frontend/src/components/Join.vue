@@ -3,8 +3,9 @@
     <div>
       <h1 class="text-4xl font-bold text-gray-900">Braintastic 🤯</h1>
       <h2 class="mt-6 text-3xl font-extrabold leading-9 text-gray-900">
-        Join the brainstorming session
+        Join <span class="text-blue-700">{{ sessionName }}</span>
       </h2>
+      <p class="mt-2 text-lg font-medium">Created by <span class="text-blue-700">{{ sessionHost }}</span></p>
     </div>
     <div class="mt-8">
       <div class="mt-6">
@@ -26,15 +27,21 @@
             />
           </div>
         </div>
-
         <div v-if="!filledAllFields" class="mt-6 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" role="alert">
           <strong class="font-bold">Stop! </strong>
-          <span class="block sm:inline">First fill in all the fields</span>
+          <span class="block sm:inline">Please fill in your name.</span>
         </div>
 
-        <div v-if="!userIsCorrect" class="mt-6 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" role="alert">
-          <strong class="font-bold">Sorry! </strong>
-          <span class="block sm:inline">Name already taken!</span>
+        <div class="mt-6">
+          <span class="block w-full rounded-md shadow-sm">
+            <button
+              @click="onJoin"
+              type="submit"
+              class="flex justify-center w-full px-4 py-2 text-md font-medium text-white transition duration-150 ease-in-out bg-blue-700 border border-transparent rounded-md hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
+            >
+              Join now
+            </button>
+          </span>
         </div>
       </div>
     </div>
@@ -51,62 +58,49 @@ const baseURL = 'http://localhost:8080/'
 export default {
   data () {
     return {
+      sessionId: this.$route.params.id,
+      sessionHost: '',
+      sessionName: '',
       username: '',
       password: null,
-      isValidEmail: true,
-      filledAllFields: true,
-      usernameAvailable: true,
-      givenResponse: null,
-      userIsCorrect: true,
-      token: ''
+      filledAllFields: true
     }
   },
+  async created () {
+    axios.get(baseURL + 'Session/id/' + this.sessionId)
+      .then(res => {
+        console.log(res.data)
+        this.sessionHost = res.data.host.name
+        this.sessionName = res.data.name
+      })
+      .catch(error => {
+        console.error('Session not existing: ' + error)
+        router.push({ name: 'register' })
+      })
+    // next(isUndefined ? { name: 'register' } : true)
+  },
   methods: {
-    onSignIn () {
-      if (this.username == null || this.password == null) {
+    onJoin () {
+      if (this.username == null) {
         this.filledAllFields = false
       } else {
         this.filledAllFields = true
-        if (this.validateEmail(this.username)) {
-          // eslint-disable-next-line no-unused-vars
-          const res = axios.post(baseURL + 'user/login', { name: this.username, password: this.password })
-            .then(response => {
-              console.log(response.status)
-              console.log(response.headers.sessionId)
-
-              console.log(response)
-              if (response.status === 200) {
-                router.push('/create/' + this.username)
-              } else {
-                this.userIsCorrect = false
-              }
-            })
-            .catch(error => {
+        // eslint-disable-next-line no-unused-vars
+        const res = axios.post(baseURL + 'Participant', { name: this.username })
+          .then(response => {
+            console.log(response)
+            if (response.status === 200) {
+              router.push('/session/' + this.sessionId + '/' + this.username)
+            } else {
               this.userIsCorrect = false
-              console.log(error.response)
-              console.log(this.usernameAvailable = false)
-            })
-        }
+            }
+          })
+          .catch(error => {
+            this.userIsCorrect = false
+            console.log(error.response)
+            console.log(this.usernameAvailable = false)
+          })
       }
-    },
-    validateEmail (email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      this.isValidEmail = re.test(String(email).toLowerCase())
-      return re.test(String(email).toLowerCase())
-    },
-    getToken () {
-      // eslint-disable-next-line no-unused-vars
-      const res = axios.get(baseURL + 'user/Token')
-        .then(response => {
-          console.log(response.status)
-          console.log(response.data)
-          this.token = response.data
-          console.error(this.token)
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error.response)
-        })
     }
   }
 }

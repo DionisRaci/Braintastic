@@ -6,6 +6,7 @@ import Register from '../components/Register.vue'
 import Join from '../components/Join.vue'
 import RegisterSuccessful from '../components/RegisterSuccessful.vue'
 import CreateSession from '../views/CreateSession.vue'
+import Session from '../views/Session.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,7 @@ const routes = [
 
   },
   { path: '/create/:id', component: CreateSession, name: 'create' },
+  { path: '/session/:id/:name', component: Session, name: 'session' },
   { path: '*', redirect: '/register' }
   /*,
   {
