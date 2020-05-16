@@ -33,8 +33,6 @@ public class Idea {
     /*public Participant getParticipant() {
         return participant;
     }
-<<<<<<< HEAD
-=======
 
     public void setParticipant(Participant participant) {
         this.participant = participant;
@@ -43,5 +41,4 @@ public class Idea {
     public void setDescription(String description) {
         this.description = description;
     }
->>>>>>> BackendSessionDev
 }

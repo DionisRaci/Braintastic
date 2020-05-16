@@ -1,10 +1,7 @@
 package at.braintastic.braintasticendpoint.entity;
 
 import javax.persistence.*;
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
->>>>>>> BackendSessionDev
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,20 +17,16 @@ import java.util.List;
         ),
 })
 @Table(name = "BT_Participant", schema = "braintasticdb")
-<<<<<<< HEAD
 public class Participant {
-=======
-public class Participant{
->>>>>>> BackendSessionDev
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 
-<<<<<<< HEAD
+
     @OneToMany
     List<Idea> Ideas = new LinkedList<Idea>();
-=======
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<Idea> ideas = new ArrayList<>();
 
@@ -43,7 +36,7 @@ public class Participant{
     public Participant(String name) {
         this.name = name;
     }
->>>>>>> BackendSessionDev
+
 
     public long getId() {
         return id;
@@ -58,15 +51,7 @@ public class Participant{
     }
 
     public List<Idea> getIdeas() {
-<<<<<<< HEAD
         return Ideas;
-    }
-
-    public void setIdea(Idea idea) {
-        Ideas.add(idea);
-    }
-=======
-        return ideas;
     }
 
     public void insertIdea(Idea idea){
@@ -78,5 +63,5 @@ public class Participant{
     }
 
 
->>>>>>> BackendSessionDev
+
 }

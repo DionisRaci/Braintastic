@@ -1,11 +1,6 @@
 package at.braintastic.braintasticendpoint.control;
 
 import at.braintastic.braintasticendpoint.entity.Participant;
-<<<<<<< HEAD
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
-=======
 import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 import org.springframework.security.core.parameters.P;
@@ -14,7 +9,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
->>>>>>> BackendSessionDev
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -24,27 +18,16 @@ import java.util.List;
 public class ParticipantRepository {
     @PersistenceContext
     EntityManager em;
-<<<<<<< HEAD
-=======
 
     @Inject
     SessionRepository sessionRepository;
 
->>>>>>> BackendSessionDev
     public Participant findById(long participantId) {
         return null;
     }
 
     public Participant findByName(String userName) {
         return em.createNamedQuery("Participant.findByName", Participant.class)
-<<<<<<< HEAD
-                .setParameter("NAME", '%' + userName + '%').
-                        getSingleResult();
-    }
-
-    public void insertParticipant(Participant p) {
-        em.merge(p);
-=======
                 .setParameter("NAME", '%' + userName + '%')
                 .getSingleResult();
     }
@@ -68,7 +51,6 @@ public class ParticipantRepository {
 
     public Participant insertParticipant(Participant p) {
         return em.merge(p);
->>>>>>> BackendSessionDev
     }
 
     public List<Participant> findAll() {
