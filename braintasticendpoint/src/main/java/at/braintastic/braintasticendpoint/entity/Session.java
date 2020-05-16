@@ -24,6 +24,8 @@ public class Session {
     @Id
     private long id;
 
+    private String name;
+
     @ManyToOne
     private User host;
 
@@ -33,12 +35,21 @@ public class Session {
     public Session(){
     }
 
-    public Session(User host){
+    public Session(String name, User host){
+        this.name = name;
         this.host = host;
     }
 
     public long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getHost() { return host; }

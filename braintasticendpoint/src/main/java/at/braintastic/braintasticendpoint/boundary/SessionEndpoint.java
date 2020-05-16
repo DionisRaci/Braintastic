@@ -35,9 +35,10 @@ public class SessionEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(JsonObject user){
-        String userName = "Test12332";
+        String userName = user.getString("userName");
+        String name = user.getString("name");
         User u = userRepository.findByName(userName);
-        Session s = new Session(u);
+        Session s = new Session(name, u);
         sessionRepository.insertSession(s);
         return Response.status(200, "test").header("sessionId", s.getId()).build();
     }

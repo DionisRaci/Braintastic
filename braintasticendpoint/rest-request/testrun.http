@@ -21,7 +21,8 @@ POST http://localhost:8081/Session
 Content-Type: application/json
 
 {
-  "userName": "Test12332"
+  "userName": "Test12332",
+  "name": "Beste Session!"
 }
 ###
 
