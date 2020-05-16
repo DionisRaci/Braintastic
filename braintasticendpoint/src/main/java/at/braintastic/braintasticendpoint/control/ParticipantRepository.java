@@ -1,6 +1,7 @@
 package at.braintastic.braintasticendpoint.control;
 
 import at.braintastic.braintasticendpoint.entity.Participant;
+import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -41,6 +42,9 @@ public class ParticipantRepository {
             Participant p = new Participant(userName);
             p = insertParticipant(p);
             sessionRepository.addParticipant(p, sessionId);
+            Session s = sessionRepository.findById(sessionId);
+            s.decreaseCount();
+            em.merge(s);
             return p;
         }
         return null;

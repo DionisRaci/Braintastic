@@ -29,7 +29,7 @@ public class IdeaRepository {
         em.remove(i);;
     }
 
-    private Idea findById(long id) {
+    public Idea findById(long id) {
         return em.find(Idea.class, id);
     }
 }

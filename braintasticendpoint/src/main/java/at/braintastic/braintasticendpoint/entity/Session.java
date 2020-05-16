@@ -26,7 +26,7 @@ public class Session {
     private long id;
 
     private String name;
-    private int participantCount = 0;
+    private int participantCount = 1;
 
     @ManyToOne
     private User host;

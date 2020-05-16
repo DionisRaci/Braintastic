@@ -42,8 +42,7 @@ public class IdeaEndpoint {
         i = ideaRepository.insertIdea(i);
         p.insertIdea(i);
         participantRepository.insertParticipant(p);
-        Session s = sessionRepository.findById(id);
-        return Response.ok(s.getParticipantCount()).build();
+        return Response.ok(p.getId()).build();
     }
 
     @DELETE
