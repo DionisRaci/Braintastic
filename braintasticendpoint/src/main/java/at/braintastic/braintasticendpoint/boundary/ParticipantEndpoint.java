@@ -24,35 +24,28 @@ public class ParticipantEndpoint {
         return participantRepository.findAll();
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Participant getParticipantById(@PathParam("id") long id) {
+        return participantRepository.findById(id);
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(@Context UriInfo info, @PathParam("id") long id, JsonValue jsonValue) {
+    public Response create(@Context UriInfo info, JsonValue jsonValue) {
         if(jsonValue.getValueType() == JsonValue.ValueType.ARRAY) {
             JsonArray jsonArray = jsonValue.asJsonArray();
             for (JsonValue value : jsonArray) {
                 String name = value.asJsonObject().getString("name");
-                try {
-                    Participant u = participantRepository.findByNameInSession(name,id);
-                    if (u != null){
-                        return Response.serverError().build();
-                    }
-                }catch (Exception e){
-                    Participant u = new Participant(name);
-                    u = participantRepository.insertParticipant(u);
-                }
+                Participant u = new Participant(name);
+                u = participantRepository.insertParticipant(u);
             }
         }
         else {
             String name = jsonValue.asJsonObject().getString("name");
-            try {
-                Participant u = participantRepository.findByNameInSession(name, id);
-                if(u != null){
-                    return Response.serverError().build();
-                }
-            }catch (Exception e){
-                Participant u = new Participant(name);
-                u = participantRepository.insertParticipant(u);
-            }
+            Participant u = new Participant(name);
+            u = participantRepository.insertParticipant(u);
         }
         return Response.status(200).build();
     }
