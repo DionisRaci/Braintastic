@@ -23,10 +23,6 @@ public class Participant {
     private long id;
     private String name;
 
-
-    @OneToMany
-    List<Idea> Ideas = new LinkedList<Idea>();
-
     @OneToMany(fetch = FetchType.EAGER)
     private List<Idea> ideas = new ArrayList<>();
 
@@ -48,10 +44,6 @@ public class Participant {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Idea> getIdeas() {
-        return Ideas;
     }
 
     public void insertIdea(Idea idea){
