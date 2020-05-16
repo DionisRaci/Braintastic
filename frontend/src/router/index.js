@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Access from '../views/Access.vue'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
+import Join from '../components/Join.vue'
 import RegisterSuccessful from '../components/RegisterSuccessful.vue'
 import CreateSession from '../views/CreateSession.vue'
 
@@ -17,7 +18,7 @@ const routes = [
     // redirect to register if not login
     beforeEnter (to, from, next) {
       console.log(to.name)
-      const isUndefined = to.name !== 'register' && to.name !== 'login'
+      const isUndefined = to.name !== 'register' && to.name !== 'login' && to.name !== 'join'
 
       console.log(isUndefined)
       next(isUndefined ? { name: 'register' } : true)
@@ -25,6 +26,7 @@ const routes = [
     children: [
       { path: '/login', component: Login, name: 'login' },
       { path: '/register', component: Register, name: 'register' },
+      { path: '/join/:id', component: Join, name: 'join' },
       { path: '/register-successful/:id', component: RegisterSuccessful, name: 'register-successful' }
     ]
 

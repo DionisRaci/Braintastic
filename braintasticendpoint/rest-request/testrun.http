@@ -56,3 +56,4 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:8081/Idea
