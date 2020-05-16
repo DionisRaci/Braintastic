@@ -22,6 +22,7 @@ import java.util.List;
 @Table(name = "BT_Session", schema = "braintasticdb")
 public class Session {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
