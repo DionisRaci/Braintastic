@@ -44,6 +44,7 @@ public class SessionEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(JsonObject user){
         String userName = user.getString("userName");
+<<<<<<< HEAD
         User u = userRepository.findByName(userName);
         Session s = new Session(u);
         s = sessionRepository.insertSession(s);
@@ -57,6 +58,22 @@ public class SessionEndpoint {
     public Response create(@PathParam("sessionId") Long sessionId,JsonObject user){
         long hostId = user.getInt("userId");
         sessionRepository.insertUser(hostId, sessionId);
+=======
+        String name = user.getString("name");
+        User u = userRepository.findByName(userName);
+        Session s = new Session(name, u);
+        sessionRepository.insertSession(s);
+        return Response.status(200, "test").header("sessionId", s.getId()).build();
+    }
+
+
+    @POST
+    @Path("addParticipant/{sessionId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addParticipant(@PathParam("sessionId") Long sessionId,JsonObject participant){
+        String name = participant.getString("name");
+        Session s = sessionRepository.addParticipant(name, sessionId);
+>>>>>>> BackendSessionDev
         return Response.status(200).build();
     }
 

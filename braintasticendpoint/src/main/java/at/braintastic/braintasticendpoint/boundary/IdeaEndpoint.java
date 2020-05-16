@@ -2,13 +2,17 @@ package at.braintastic.braintasticendpoint.boundary;
 
 import at.braintastic.braintasticendpoint.control.IdeaRepository;
 import at.braintastic.braintasticendpoint.control.ParticipantRepository;
+<<<<<<< HEAD
 import at.braintastic.braintasticendpoint.control.SessionRepository;
 import at.braintastic.braintasticendpoint.control.UserRepository;
 import at.braintastic.braintasticendpoint.entity.Idea;
 import at.braintastic.braintasticendpoint.entity.Participant;
 import at.braintastic.braintasticendpoint.entity.Session;
+=======
+import at.braintastic.braintasticendpoint.entity.Idea;
+import at.braintastic.braintasticendpoint.entity.Participant;
+>>>>>>> BackendSessionDev
 import at.braintastic.braintasticendpoint.entity.User;
-import netscape.javascript.JSObject;
 
 import javax.inject.Inject;
 import javax.json.JsonObject;
@@ -23,8 +27,11 @@ public class IdeaEndpoint {
     @Inject
     IdeaRepository ideaRepository;
     @Inject
+<<<<<<< HEAD
     SessionRepository sessionRepository;
     @Inject
+=======
+>>>>>>> BackendSessionDev
     ParticipantRepository participantRepository;
 
     @GET
@@ -41,8 +48,9 @@ public class IdeaEndpoint {
     }
 
     @POST
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(JsonObject idea){
+    public Response create(@PathParam("id") long id, JsonObject idea){
         String userName = (idea.getString("userName"));
         Participant p = participantRepository.findByName(userName);
         Long sessionId = (long) idea.getInt("sessionId");
@@ -52,8 +60,14 @@ public class IdeaEndpoint {
         }
         String desc = idea.getString("description");
         Idea i = new Idea(desc);
+<<<<<<< HEAD
         p.setIdea(i);
         ideaRepository.insertIdea(i);
+=======
+        Participant p = participantRepository.findByNameInSession(userName, id);
+        i = ideaRepository.insertIdea(i);
+        p.insertIdea(i);
+>>>>>>> BackendSessionDev
         participantRepository.insertParticipant(p);
         return Response.status(200).build();
     }

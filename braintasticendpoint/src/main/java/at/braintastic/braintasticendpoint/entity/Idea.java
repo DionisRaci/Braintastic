@@ -30,7 +30,18 @@ public class Idea {
         return description;
     }
 
+    /*public Participant getParticipant() {
+        return participant;
+    }
+<<<<<<< HEAD
+=======
+
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
+    }*/
+
     public void setDescription(String description) {
         this.description = description;
     }
+>>>>>>> BackendSessionDev
 }

@@ -46,6 +46,15 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8081/Participant
+Content-Type: application/json
+
+{
+  "name": "ahayes"
+}
+
+###
+
 POST http://localhost:8081/user
 Content-Type: application/json
 
@@ -65,6 +74,7 @@ Content-Type: application/json
 
 ###
 
+<<<<<<< HEAD
 POST http://localhost:8081/Idea
 Content-Type: application/json
 
@@ -76,6 +86,11 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8081/Session
+=======
+DELETE http://localhost:8080/user/delete/1
+###
+GET http://localhost:8081/Participant
+>>>>>>> BackendSessionDev
 
 ###
 
@@ -88,8 +103,21 @@ Content-Type: application/json
 
 {
   "description": "test#2",
+<<<<<<< HEAD
   "userName": "Test12332",
   "sessionId": 1
+=======
+  "userName": "Test12332"
+}
+
+###
+
+POST http://localhost:8081/Session/addParticipant/1
+Content-Type: application/json
+
+{
+  "name": "ahayes"
+>>>>>>> BackendSessionDev
 }
 
 ###
@@ -111,5 +139,9 @@ Content-Type: application/json
   "userName": "Gabriel",
   "sessionId": 1
 }
+
+###
+
+GET http://localhost:8081/Session
 
 ###
