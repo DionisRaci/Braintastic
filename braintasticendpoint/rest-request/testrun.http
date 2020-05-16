@@ -11,8 +11,8 @@ POST http://localhost:8081/user
 Content-Type: application/json
 
 {
-  "name": "Test12332",
-  "password": "Hello1223"
+  "name": "test@test.com",
+  "password": "hello"
 }
 
 ###
@@ -21,7 +21,7 @@ POST http://localhost:8081/Session
 Content-Type: application/json
 
 {
-  "userName": "Test12332",
+  "userName": "test@test.com",
   "name": "Beste Session!"
 }
 ###
@@ -38,13 +38,18 @@ POST http://localhost:8081/Idea/0
 Content-Type: application/json
 
 {
-  "description": "test#2",
+  "description": "test#1",
   "userName": "ahayes"
 }
+
 ###
-GET http://localhost:8081/Session
+
+GET http://localhost:8081/Session/0/ideas
+
 ###
+
 GET http://localhost:8081/Participant
+
 ###
 
 POST http://localhost:8081/Idea/0
@@ -52,7 +57,13 @@ Content-Type: application/json
 
 {
   "description": "test#2",
-  "userName": "Test12332"
+  "userName": "test@test.com"
 }
 
 ###
+
+GET http://localhost:8081/Session/id/0
+
+###
+
+GET http://localhost:8081/Session
