@@ -54,12 +54,14 @@ public class SessionRepository {
         Session s = findById(sessionId);
         Participant p = participantRepository.findByName(name);
         s.insertParticipant(p);
-        return em.merge(s);
+        em.merge(s);
+        return s;
     }
     public Session addParticipant(Participant p, Long sessionId) {
         Session s = findById(sessionId);
         s.insertParticipant(p);
-        return em.merge(s);
+        em.merge(s);
+        return s;
     }
 
     public User findHost(long sessionId) {
@@ -76,5 +78,14 @@ public class SessionRepository {
             ideas.addAll(participantRepository.findAllIdeasByParticipant(p.getId()));
         }
         return ideas;
+    }
+
+    public Session removeParticipant(String name, Long sessionId) {
+        Participant p = participantRepository.findByNameInSession(name, sessionId);
+        System.out.println("--------------------------------------------------------------" + p.getName());
+        Session s = findById(sessionId);
+        s.decreaseCount();
+        em.merge(s);
+        return s;
     }
 }

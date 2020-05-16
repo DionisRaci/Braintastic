@@ -60,4 +60,9 @@ public class ParticipantRepository {
                 .setParameter("ID", id)
                 .getResultList();
     }
+
+    public void removeParticipant(Participant p) {
+        em.remove(p);
+        em.flush();
+    }
 }

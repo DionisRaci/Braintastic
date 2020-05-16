@@ -26,6 +26,7 @@ public class Session {
     private long id;
 
     private String name;
+    private int participantCount = 0;
 
     @ManyToOne
     private User host;
@@ -61,9 +62,25 @@ public class Session {
 
     public void setParticipants(List<Participant> participants) {
         this.participants = participants;
+        this.participantCount = participants.size();
     }
 
     public void insertParticipant(Participant p) {
+        if (participants.contains(p)) return;
         participants.add(p);
+        participantCount++;
+    }
+
+    public int getParticipantCount() {
+        return this.participantCount;
+    }
+
+    public void removeParticipant(Participant p) {
+        participants.remove(p);
+        decreaseCount();
+    }
+
+    public void decreaseCount() {
+        this.participantCount--;
     }
 }

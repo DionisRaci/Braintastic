@@ -34,6 +34,13 @@ public class SessionEndpoint {
     }
 
     @GET
+    @Path("/sessionCount/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int getSessionCount(@PathParam("id") Long id) {
+        return sessionRepository.findById(id).getParticipantCount();
+    }
+
+    @GET
     @Path("/{id}/ideas")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Idea> getSessionIdeasById(@PathParam("id") Long id) {
@@ -59,6 +66,15 @@ public class SessionEndpoint {
     public Response addParticipant(@PathParam("sessionId") Long sessionId,JsonObject participant){
         String name = participant.getString("name");
         Session s = sessionRepository.addParticipant(name, sessionId);
-        return Response.status(200).build();
+        return Response.ok(s.getParticipantCount()).build();
+    }
+
+    @POST
+    @Path("removeParticipant/{sessionId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response removeParticipant(@PathParam("sessionId") Long sessionId,JsonObject participant){
+        String name = participant.getString("name");
+        Session s = sessionRepository.removeParticipant(name, sessionId);
+        return Response.ok(s.getParticipantCount()).build();
     }
 }
