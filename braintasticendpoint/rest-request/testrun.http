@@ -62,4 +62,8 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8081/Session/0
+GET http://localhost:8081/Session/id/0
+
+###
+
+GET http://localhost:8081/Session
