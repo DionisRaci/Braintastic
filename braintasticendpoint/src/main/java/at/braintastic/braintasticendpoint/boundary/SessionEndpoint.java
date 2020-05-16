@@ -2,6 +2,7 @@ package at.braintastic.braintasticendpoint.boundary;
 
 import at.braintastic.braintasticendpoint.control.SessionRepository;
 import at.braintastic.braintasticendpoint.control.UserRepository;
+import at.braintastic.braintasticendpoint.entity.Idea;
 import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
 
@@ -32,6 +33,13 @@ public class SessionEndpoint {
         return sessionRepository.findById(id);
     }
 
+    @GET
+    @Path("/{id}/ideas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Idea> getSessionIdeasById(@PathParam("id") Long id) {
+        return sessionRepository.findAllIdeas(id);
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(JsonObject user){
@@ -40,7 +48,8 @@ public class SessionEndpoint {
         User u = userRepository.findByName(userName);
         Session s = new Session(name, u);
         sessionRepository.insertSession(s);
-        return Response.status(200, "test").header("sessionId", s.getId()).build();
+        //return Response.status(200, "test").header("sessionId", s.getId()).build();
+        return Response.ok(s.getId()).build();
     }
 
 
