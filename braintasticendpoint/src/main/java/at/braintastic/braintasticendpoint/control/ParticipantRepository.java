@@ -1,14 +1,11 @@
 package at.braintastic.braintasticendpoint.control;
 
 import at.braintastic.braintasticendpoint.entity.Participant;
-import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
-import org.springframework.security.core.parameters.P;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -55,6 +52,12 @@ public class ParticipantRepository {
 
     public List<Participant> findAll() {
         return em.createNamedQuery("Participant.findAll", Participant.class)
+                .getResultList();
+    }
+
+    public List findAllIdeasByParticipant(long id) {
+        return em.createNamedQuery("Participant.findIdeas")
+                .setParameter("ID", id)
                 .getResultList();
     }
 }

@@ -1,5 +1,6 @@
 package at.braintastic.braintasticendpoint.control;
 
+import at.braintastic.braintasticendpoint.entity.Idea;
 import at.braintastic.braintasticendpoint.entity.Participant;
 import at.braintastic.braintasticendpoint.entity.Session;
 import at.braintastic.braintasticendpoint.entity.User;
@@ -9,7 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -24,7 +25,7 @@ public class SessionRepository {
         return em.createNamedQuery("Session.findAll", Session.class).getResultList();
     }
 
-    public List<Participant> findAllParticipants(long sessionId) {
+    public List findAllParticipants(long sessionId) {
         return em.createNamedQuery("Session.findAllParticipants")
                 .setParameter("ID", sessionId)
                 .getResultList();
@@ -65,5 +66,15 @@ public class SessionRepository {
         return em.createNamedQuery("Session.findHost", User.class)
                 .setParameter("ID", sessionId)
                 .getSingleResult();
+    }
+
+    public List<Idea> findAllIdeas(Long id) {
+        List<Participant> participants = findAllParticipants(id);
+
+        List<Idea> ideas = new ArrayList<>();
+        for (Participant p: participants) {
+            ideas.addAll(participantRepository.findAllIdeasByParticipant(p.getId()));
+        }
+        return ideas;
     }
 }

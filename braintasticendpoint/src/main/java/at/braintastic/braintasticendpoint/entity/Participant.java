@@ -15,6 +15,10 @@ import java.util.List;
                 name = "Participant.findAll",
                 query = "select p from Participant p"
         ),
+        @NamedQuery(
+                name = "Participant.findIdeas",
+                query = "select p.ideas from Participant p where p.id = :ID"
+        ),
 })
 @Table(name = "BT_Participant", schema = "braintasticdb")
 public class Participant {

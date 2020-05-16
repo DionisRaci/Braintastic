@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
   "userName": "Test12332",
-  "name": "Beste Session!"
+  "name": "Beste Session!2"
 }
 ###
 
@@ -42,7 +42,7 @@ Content-Type: application/json
   "userName": "ahayes"
 }
 ###
-GET http://localhost:8081/Session
+GET http://localhost:8081/Session/0/ideas
 ###
 GET http://localhost:8081/Participant
 ###
