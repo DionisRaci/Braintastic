@@ -90,6 +90,7 @@ export default {
           .then(response => {
             console.log(response)
             if (response.status === 200) {
+              console.log(axios.post(baseURL + 'Session/addParticipant/' + this.sessionId, { name: this.username }))
               router.push('/session/' + this.sessionId + '/' + this.username)
             } else {
               this.userIsCorrect = false
