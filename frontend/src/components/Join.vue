@@ -53,7 +53,7 @@ import axios from 'axios'
 
 import router from '@/router'
 
-const baseURL = 'http://localhost:8080/'
+const baseURL = 'http://localhost:8080/api/'
 
 export default {
   data () {

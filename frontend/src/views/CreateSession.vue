@@ -76,7 +76,7 @@
 <script>
 import axios from 'axios'
 
-const baseURL = 'http://localhost:8080/'
+const baseURL = 'http://localhost:8080/api/'
 
 export default {
   data () {
@@ -118,7 +118,7 @@ export default {
             if (response.status === 200) {
               this.sessionCreated = true
               this.sessionId = response.data
-              this.sessionLink = baseURL + 'join/' + this.sessionId
+              this.sessionLink = 'http://localhost:8080/' + 'join/' + this.sessionId
             }
           })
           .catch(error => {

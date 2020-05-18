@@ -9,22 +9,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-const baseURL = 'http://localhost:8080/'
-
 export default {
   props: [
     'text',
     'id'
-  ],
-  created () {
-    axios.get(baseURL + 'Session/' + this.sessionId + '/ideas')
-      .then(res => {
-        this.ideas = res.data
-      })
-  }
-
+  ]
 }
 </script>
 
