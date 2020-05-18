@@ -1,21 +1,24 @@
-POST http://localhost:8081/Participant
-Content-Type: application/json
-
-{
-  "name": "ahayes"
-}
-
-###
+### User wird erstellt
 
 POST http://localhost:8081/user
 Content-Type: application/json
 
 {
   "name": "test@test.com",
-  "password": "hello"
+  "password": "gab"
 }
 
-###
+### Users Login wird geprüft
+
+POST http://localhost:8081/user/login
+Content-Type: application/json
+
+{
+"name": "test@test.com",
+"password": "gab"
+}
+
+### Session wird erstellt (von User)
 
 POST http://localhost:8081/Session
 Content-Type: application/json
@@ -24,7 +27,17 @@ Content-Type: application/json
   "userName": "test@test.com",
   "name": "Beste Session!"
 }
-###
+
+### Participant erstellen (noch nichts mit der Session zu tun)
+
+POST http://localhost:8081/Participant
+Content-Type: application/json
+
+{
+  "name": "ahayes"
+}
+
+### Participant zur Session hinzufügen (participantCount)
 
 POST http://localhost:8081/Session/addParticipant/1
 Content-Type: application/json
@@ -32,42 +45,48 @@ Content-Type: application/json
 {
   "name": "ahayes"
 }
-###
+
+### Idee des participant zur Session 1 hinzufügen
 
 POST http://localhost:8081/Idea/1
 Content-Type: application/json
 
 {
-  "description": "So I would say that we do it like this and this like this",
+  "description": "I would say, that we do it like this and that not like this.",
   "userName": "ahayes"
 }
 
-###
-
-GET http://localhost:8081/Session/1/ideas
-
-###
-
-GET http://localhost:8081/Participant
-
-###
+### Idee des Users zur Session 1 hinzufügen
 
 POST http://localhost:8081/Idea/1
 Content-Type: application/json
 
 {
   "description": "test#2",
-  "userName": "JulianMorgan"
+  "userName": "test@test.com"
 }
 
-###
+### GET alle Ideen in der Datenbank
+
+GET http://localhost:8081/Session/1/ideas
+
+### GET alle Participants in der Datenbank
+
+GET http://localhost:8081/Participant
+
+### GET alles zur Session 1
 
 GET http://localhost:8081/Session/id/1
 
-###
+### GET alles Session die es gibt
 
 GET http://localhost:8081/Session
 
-###
+### Participant verlässt die Session (participantCount - 1)
 
-GET http://localhost:8081/Session/addParticipant/1
+POST http://localhost:8081/Session/removeParticipant/1
+Content-Type: application/json
+
+{
+  "name": "ahayes"
+}
