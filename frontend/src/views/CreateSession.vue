@@ -114,7 +114,6 @@ export default {
         // eslint-disable-next-line no-unused-vars
         const res = axios.post(baseURL + 'Session', { userName: this.username, name: this.sessionTitle })
           .then(response => {
-            console.log(response)
             if (response.status === 200) {
               this.sessionCreated = true
               this.sessionId = response.data
@@ -124,7 +123,6 @@ export default {
           .catch(error => {
             this.sessionCreated = false
             console.log(error.response)
-            console.log(this.usernameAvailable = false)
           })
       }
     }

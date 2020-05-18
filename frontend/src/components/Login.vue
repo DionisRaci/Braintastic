@@ -131,10 +131,6 @@ export default {
           // eslint-disable-next-line no-unused-vars
           const res = axios.post(baseURL + 'user/login', { name: this.username, password: this.password })
             .then(response => {
-              console.log(response.status)
-              console.log(response.headers.sessionId)
-
-              console.log(response)
               if (response.status === 200) {
                 router.push('/create/' + this.username)
               } else {
@@ -144,7 +140,7 @@ export default {
             .catch(error => {
               this.userIsCorrect = false
               console.log(error.response)
-              console.log(this.usernameAvailable = false)
+              this.usernameAvailable = false
             })
         }
       }

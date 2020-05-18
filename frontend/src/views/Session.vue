@@ -36,7 +36,7 @@
     <main>
       <div class="max-w-7xl bg-gray-200 h-screen mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 sm:gap-4 md:gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-          <app-card v-for="idea in ideas" :key="idea.id" :text="idea.description" :id="idea.id"></app-card>
+          <app-card v-for="idea in ideas" :key="idea.id" :text="idea.description"></app-card>
         </div>
 
       </div>
@@ -45,10 +45,12 @@
 </template>
 
 <script>
-import Card from '../components/Card.vue'
 import axios from 'axios'
 
+import Card from '../components/Card.vue'
+
 const baseURL = 'http://localhost:8080/api/'
+
 export default {
   components: {
     'app-card': Card
@@ -96,7 +98,6 @@ export default {
           })
         axios.get(baseURL + 'Session/' + this.sessionId + '/ideas')
           .then(res => {
-            console.log(res)
             this.ideas = res.data
           })
       }, 1000)
@@ -106,7 +107,6 @@ export default {
     if (this.participantsCount > 1) {
       axios.post(baseURL + 'Session/removeParticipant/' + this.sessionId, { name: this.username })
         .then(response => {
-          console.log(response)
         })
         .catch(error => {
           console.log(error.response)

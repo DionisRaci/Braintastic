@@ -69,7 +69,6 @@ export default {
   async created () {
     axios.get(baseURL + 'Session/id/' + this.sessionId)
       .then(res => {
-        console.log(res.data)
         this.sessionHost = res.data.host.name
         this.sessionName = res.data.name
       })
@@ -88,9 +87,14 @@ export default {
         // eslint-disable-next-line no-unused-vars
         const res = axios.post(baseURL + 'Participant', { name: this.username })
           .then(response => {
-            console.log(response)
             if (response.status === 200) {
-              console.log(axios.post(baseURL + 'Session/addParticipant/' + this.sessionId, { name: this.username }))
+              axios.post(baseURL + 'Session/addParticipant/' + this.sessionId, { name: this.username })
+                .then(response => {
+                  console.log(response)
+                })
+                .catch(error => {
+                  console.log(error.response)
+                })
               router.push('/session/' + this.sessionId + '/' + this.username)
             } else {
               this.userIsCorrect = false
@@ -98,13 +102,11 @@ export default {
           })
           .catch(error => {
             this.userIsCorrect = false
-            console.log(error.response)
-            console.log(this.usernameAvailable = false)
+            console.error(error.response)
+            this.usernameAvailable = false
           })
       }
     }
   }
 }
 </script>
-
-<style></style>

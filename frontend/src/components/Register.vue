@@ -136,15 +136,13 @@ export default {
           // eslint-disable-next-line no-unused-vars
           const res = axios.post(baseURL + 'user', { name: this.username, password: this.password })
             .then(response => {
-              console.log(response.status)
-              console.log(response)
               if (response.status === 200) {
                 router.push('/register-successful/' + this.username)
               }
             })
             .catch(error => {
               console.log(error.response)
-              console.log(this.usernameAvailable = false)
+              this.usernameAvailable = false
             })
         }
       }
