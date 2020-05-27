@@ -15,6 +15,7 @@ public class Idea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String description;
+    private int points;
 
     public Idea(){}
 
@@ -41,4 +42,13 @@ public class Idea {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void increasePoints() {
+        this.points+=1;
+    }
+
 }
