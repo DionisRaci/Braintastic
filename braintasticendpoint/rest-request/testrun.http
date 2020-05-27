@@ -1,58 +1,64 @@
-POST http://localhost:8081/Participant
-Content-Type: application/json
+### User wird erstellt
 
-{
-  "name": "ahayes"
-}
-
-###
-
-POST http://localhost:8081/user
+POST http://localhost:8081/api/user
 Content-Type: application/json
 
 {
   "name": "test@test.com",
-  "password": "hello"
+  "password": "gab"
 }
 
-###
+### Users Login wird geprüft
 
-POST http://localhost:8081/Session
+POST http://localhost:8081/api/user/login
+Content-Type: application/json
+
+{
+"name": "test@test.com",
+"password": "gab"
+}
+
+### Session wird erstellt (von User)
+
+POST http://localhost:8081/api/Session
 Content-Type: application/json
 
 {
   "userName": "test@test.com",
   "name": "Beste Session!"
 }
-###
 
-POST http://localhost:8081/Session/addParticipant/0
+### Participant erstellen (noch nichts mit der Session zu tun)
+
+POST http://localhost:8081/api/Participant
 Content-Type: application/json
 
 {
   "name": "ahayes"
 }
-###
 
-POST http://localhost:8081/Idea/0
+### Participant zur Session hinzufügen (participantCount)
+
+POST http://localhost:8081/api/Session/addParticipant/1
 Content-Type: application/json
 
 {
-  "description": "test#1",
-  "userName": "ahayes"
+  "name": "ahayes"
 }
 
-###
+### Idee des participant zur Session 1 hinzufügen
 
-GET http://localhost:8081/Session/0/ideas
+POST http://localhost:8081/api/Idea/1
+Content-Type: application/json
 
-###
+{
+  "description": "I would say, that we do it like this and that not like this.",
+  "userName": "test@test.com"
+}
 
-GET http://localhost:8081/Participant
+### Idee des Users zur Session 1 hinzufügen
 
-###
-
-POST http://localhost:8081/Idea/0
+POST http://localhost:8081/api/Idea/1
 Content-Type: application/json
 
 {
@@ -60,10 +66,27 @@ Content-Type: application/json
   "userName": "test@test.com"
 }
 
-###
+### GET alle Ideen in der Datenbank
 
-GET http://localhost:8081/Session/id/0
+GET http://localhost:8081/api/Session/1/ideas
 
-###
+### GET alle Participants in der Datenbank
 
-GET http://localhost:8081/Session
+GET http://localhost:8081/api/Participant
+
+### GET alles zur Session 1
+
+GET http://localhost:8081/api/Session/id/1
+
+### GET alles Session die es gibt
+
+GET http://localhost:8081/api/Session
+
+### Participant verlässt die Session (participantCount - 1)
+
+POST http://localhost:8081/api/Session/removeParticipant/1
+Content-Type: application/json
+
+{
+  "name": "ahayes"
+}
