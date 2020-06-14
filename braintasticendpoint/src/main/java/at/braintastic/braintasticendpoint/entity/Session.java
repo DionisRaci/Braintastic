@@ -19,7 +19,7 @@ import java.util.List;
                 query = "select s.host from Session s where s.id = :ID"
         ),
 })
-@Table(name = "BT_Session", schema = "braintasticdb")
+@Table(name = "BT_Session")
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

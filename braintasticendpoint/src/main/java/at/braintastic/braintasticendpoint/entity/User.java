@@ -16,7 +16,7 @@ import java.security.spec.InvalidKeySpecException;
                 query = "select u from User u where u.name LIKE :NAME"
         )
 })
-@Table(name = "BT_User", schema = "braintasticdb")
+@Table(name = "BT_User")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

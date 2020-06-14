@@ -20,7 +20,7 @@ import java.util.List;
                 query = "select p.ideas from Participant p where p.id = :ID"
         ),
 })
-@Table(name = "BT_Participant", schema = "braintasticdb")
+@Table(name = "BT_Participant")
 public class Participant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,7 +9,7 @@ import javax.persistence.*;
                 query = "select i from Idea i"
         ),
 })
-@Table(name = "BT_Idea", schema = "braintasticdb")
+@Table(name = "BT_Idea")
 public class Idea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
