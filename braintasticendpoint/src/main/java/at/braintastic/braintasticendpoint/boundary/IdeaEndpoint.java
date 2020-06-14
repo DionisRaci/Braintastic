@@ -31,6 +31,21 @@ public class IdeaEndpoint {
         return ideaRepository.findAll();
     }
 
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Idea getIdea(@PathParam("id") long id) {
+        return ideaRepository.findById(id);
+    }
+
+    @GET
+    @Path("points/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int getIdeaPoints(@PathParam("id") long id) {
+        Idea i = ideaRepository.findById(id);
+        return i.getPoints();
+    }
+
     @POST
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -43,6 +58,14 @@ public class IdeaEndpoint {
         p.insertIdea(i);
         participantRepository.insertParticipant(p);
         return Response.ok(p.getId()).build();
+    }
+
+    @POST
+    @Path("increase/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response increasePoints(@PathParam("id") long id){
+        Idea i = ideaRepository.increasePoints(id);
+        return Response.ok(i.getId()).build();
     }
 
     @DELETE

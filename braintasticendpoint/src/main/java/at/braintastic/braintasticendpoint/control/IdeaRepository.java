@@ -23,7 +23,6 @@ public class IdeaRepository {
         return em.merge(idea);
     }
 
-
     public void delete(long id) {
         Idea i = findById(id);
         em.remove(i);;
@@ -31,5 +30,12 @@ public class IdeaRepository {
 
     public Idea findById(long id) {
         return em.find(Idea.class, id);
+    }
+
+    public Idea increasePoints(long id) {
+        Idea i = findById(id);
+        i.increasePoints();
+        em.merge(i);
+        return i;
     }
 }
