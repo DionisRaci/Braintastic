@@ -39,7 +39,7 @@ Am Ende einer Session können diese Ideen gleich nach Beliebtheit (Upvotes) ausg
 
 | Vue.js | HTML | TailwindCSS | Quarkus | Java | PostgreSQL |
 |---|---|---|---|---|---|
-| ![Vue.js Logo](https://vuejs.org/images/logo.png) | ![HTML Logo](https://cdn.iconscout.com/icon/free/png-512/html5-10-569380.png) | ![TailwindCSS Logo](https://seeklogo.com/images/T/tailwind-css-logo-5AD4175897-seeklogo.com.png) | ![Quarkus Logo](https://d33wubrfki0l68.cloudfront.net/ab27152bd72451a0dd70839f2d75e209cf53a80a/7f4b4/en/blog/eth_quarkus/img_hu9e7b6585cf8746baf906399ea330726d_75080_500x500_fill_q75_box_center.jpg) | ![Java Logo](https://blog.htmlvietnam.com/wp-content/uploads/2019/04/logojava.jpg) | ![Java Logo](https://portworx.com/wp-content/uploads/2018/05/postgresql-logo.png) |
+| ![Vue.js Logo](https://vuejs.org/images/logo.png) | ![HTML Logo](https://cdn.iconscout.com/icon/free/png-512/html5-10-569380.png) | ![TailwindCSS Logo](https://seeklogo.com/images/T/tailwind-css-logo-5AD4175897-seeklogo.com.png) | ![Quarkus Logo](https://d33wubrfki0l68.cloudfront.net/ab27152bd72451a0dd70839f2d75e209cf53a80a/7f4b4/en/blog/eth_quarkus/img_hu9e7b6585cf8746baf906399ea330726d_75080_500x500_fill_q75_box_center.jpg) | ![Java Logo](https://upload.wikimedia.org/wikipedia/de/e/e1/Java-Logo.svg) | ![PostgreSQL Logo](https://portworx.com/wp-content/uploads/2018/05/postgresql-logo.png) |
 
 ## Projekt Details
 
