@@ -1,4 +1,4 @@
-# frontend
+# Braintastic Frontend
 
 ## Project setup
 ```
